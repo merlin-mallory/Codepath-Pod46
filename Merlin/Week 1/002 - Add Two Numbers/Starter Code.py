@@ -20,18 +20,5 @@ class Solution:
         N is in range 1-100
         Node.val are only digits 0-9
         There are no leading zeros
-
-        Plan 1:
-
-        1. Create strings to represent both lists.
-        2. Loop through each linked list and concatenate the results
-        3. Convert both strings to integers
-        4. Calculate the sum
-        5. Create a new linked list
-
-        Plan 2:
-        1. Calculate the length of both linked lists
-        2. Add the smaller list's values to the bigger list's values, carrying ones as necessary
-        3. If the final digit of the larger list carries, then we need to add an extra node.
         '''
 
