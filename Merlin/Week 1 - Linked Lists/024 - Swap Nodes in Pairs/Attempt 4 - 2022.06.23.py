@@ -21,3 +21,4 @@ class Solution:
         The number of nodes in the list is in the range [0, 100].
         0 <= Node.val <= 100
         '''
+
