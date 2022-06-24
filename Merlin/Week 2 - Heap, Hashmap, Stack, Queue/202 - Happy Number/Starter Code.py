@@ -1,6 +1,7 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
         '''
+        https://leetcode.com/problems/happy-number/description/
         Write an algorithm to determine if a number n is happy.
 
         A happy number is a number defined by the following process:
