@@ -28,4 +28,27 @@ class Solution:
         s consists of lowercase English letters, digits, and square brackets '[]'.
         s is guaranteed to be a valid input.
         All the integers in s are in the range [1, 300].
+
+        Plan:
+        1. Reverse the string
+        2. ???
         '''
+
+        stack = []
+        current_str = ""
+        k = 0
+
+        for char in s:
+            if char == '[':
+                stack.append((current_str, k))
+                current_str = ''
+                k = 0
+            elif char == ']':
+                last_str, last_k = stack.pop(-1)
+                current_str = last_str + last_k * current_str
+            elif char.isdigit():
+                k = k*10 + int(char)
+            else:
+                current_str += char
+
+        return current_str
