@@ -24,4 +24,18 @@ class Solution:
         1 <= s.length <= 105
         s consists of only uppercase English letters.
         0 <= k <= s.length
+
+        Plan:
+        No idea
         '''
+
+        count = {}
+        max_count = start = result = 0
+        for end in range(len(s)):
+            count[s[end]] = count.get(s[end], 0) + 1
+            max_count = max(max_count, count[s[end]])
+            if end - start + 1 - max_count > k:
+                count[s[start]] -= 1
+                start += 1
+            result = max(result, end - start + 1)
+        return result
