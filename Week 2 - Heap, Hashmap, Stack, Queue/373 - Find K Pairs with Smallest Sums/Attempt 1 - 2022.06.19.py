@@ -38,52 +38,73 @@ class Solution:
         tuple, and add it to the maxheap. If the maxheap's counter reaches k, then pop the k tuples in the max heap and
         construct the array of tuples for the return.
         '''
+        import heapq
 
-        maxheap = []
-        heapq.heapify(maxheap)
-        heap_counter = 0
+        ret = []
 
-        nums1_left_pointer = 0
-        nums1_right_pointer = 0
+        if len(nums1) * len(nums2) > 0:
+            queue = [(nums1[0] + nums2[0], (0, 0))]
+            visited = {}
 
-        nums2_left_pointer = 0
-        nums2_right_pointer = 0
+            while len(ret) < k and queue:
+                _, (i, j) = heapq.heappop(queue)
+                ret.append((nums1[i], nums2[j]))
 
-        starter_sum = nums1[0] + nums2[0]
-        starter_tuple = (-starter_sum, nums1[0], nums2[0])
-        heapq.heappush(maxheap, starter_tuple)
-        heap_counter += 1
+                if j + 1 < len(nums2) and (i, j + 1) not in visited:
+                    heapq.heappush(queue, (nums1[i] + nums2[j + 1], (i, j + 1)))
+                    visited[(i, j + 1)] = 1
 
-        while heap_counter < k:
-            if nums1_left_pointer < (len(nums1) - 2):
-                combo1_sum = nums1[nums1_left_pointer + 1] + nums2[nums1_right_pointer]
-            else:
-                combo1_sum = float('inf')
+                if i + 1 < len(nums1) and (i + 1, j) not in visited:
+                    heapq.heappush(queue, (nums1[i + 1] + nums2[j], (i + 1, j)))
+                    visited[(i + 1, j)] = 1
+        return ret
 
-            if nums2_right_pointer < (len(nums2) - 2):
-                combo2_sum = nums1[nums2_left_pointer] + nums2[nums2_right_pointer + 1]
-            else:
-                combo2_sum = float('inf')
-
-            if combo1_sum <= combo2_sum:
-                nums1_left_pointer += 1
-                current_tuple = (-combo1_sum, nums1[nums1_left_pointer], nums2[nums1_right_pointer])
-                heapq.heappush(maxheap, current_tuple)
-                heap_counter += 1
-            else:
-                nums2_right_pointer += 1
-                current_tuple = (-combo2_sum, nums1[nums2_left_pointer], nums2[nums2_right_pointer])
-                heapq.heappush(maxheap, current_tuple)
-                heap_counter += 1
-
-        final_list = []
-
-
-        while maxheap:
-            tuple_sum, n1, n2 = heapq.heappop(maxheap)
-            final_list.append([n1, n2])
-
-        return final_list
+        # Failed attempt
+        # maxheap = []
+        # heapq.heapify(maxheap)
+        # heap_counter = 0
+        #
+        # nums1_left_pointer = 0
+        # nums1_right_pointer = 0
+        #
+        # nums2_left_pointer = 0
+        # nums2_right_pointer = 0
+        #
+        # starter_sum = nums1[0] + nums2[0]
+        # starter_tuple = (-starter_sum, nums1[0], nums2[0])
+        # heapq.heappush(maxheap, starter_tuple)
+        # heap_counter += 1
+        #
+        # while heap_counter < k:
+        #     if nums1_left_pointer < (len(nums1) - 2):
+        #         combo1_sum = nums1[nums1_left_pointer + 1] + nums2[nums1_right_pointer]
+        #     else:
+        #         combo1_sum = float('inf')
+        #
+        #     if nums2_right_pointer < (len(nums2) - 2):
+        #         combo2_sum = nums1[nums2_left_pointer] + nums2[nums2_right_pointer + 1]
+        #     else:
+        #         combo2_sum = float('inf')
+        #
+        #     if combo1_sum <= combo2_sum:
+        #         nums1_left_pointer += 1
+        #         current_tuple = (-combo1_sum, nums1[nums1_left_pointer], nums2[nums1_right_pointer])
+        #         heapq.heappush(maxheap, current_tuple)
+        #         heap_counter += 1
+        #     else:
+        #         nums2_right_pointer += 1
+        #         current_tuple = (-combo2_sum, nums1[nums2_left_pointer], nums2[nums2_right_pointer])
+        #         heapq.heappush(maxheap, current_tuple)
+        #         heap_counter += 1
+        #
+        # final_list = []
+        #
+        #
+        # while maxheap:
+        #     tuple_sum, n1, n2 = heapq.heappop(maxheap)
+        #     final_list.append([n1, n2])
+        #
+        # return final_list
 
 # Input: nums1 = [1,7,11], nums2 = [2,4,6], k = 3
 # Put [3,1,2] into the heap. num1pointer = 0, num2pointer = 0, heapcounter=1.
