@@ -24,4 +24,39 @@ class Solution:
 
         The number of nodes in the tree is in the range [0, 100].
         -100 <= Node.val <= 100
+
+        Plan:
+        1. Create a new tree set to root, and then set the original.left to new.right, and the original.right to
+        the new.left.
+        2. Loop down the entire tree until we hit leaf nodes.
+        3. Return the final tree
         '''
+        if not root:
+            return None
+
+        left = self.invertTree(root.left)
+        right = self.invertTree(root.right)
+        root.left = right
+        root.right = left
+        return root
+
+
+        # Failed attempt
+        # def helper(root):
+        #     if root.left is None and root.right is None:
+        #         return root
+        #
+        #     root.left = helper(root.right)
+        #
+        #     temp = root.left
+        #     root.left = root.right
+        #     root.right = temp
+        #
+        #     root.left = helper(root.right)
+        #
+        #     return root
+        #
+        # if root is None:
+        #     return None
+        #
+        # return helper(root)
