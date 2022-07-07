@@ -26,4 +26,30 @@ class Solution:
         A straightforward solution using O(mn) space is probably a bad idea.
         A simple improvement uses O(m + n) space, but still not the best solution.
         Could you devise a constant space solution?
+
+        Plan:
+        1. Loop through the matrix, and if a zero is found, then add that index's row to rows_to_be_zeroed_set,
+        and add that index's column to the columns_to_be_zeroed set.
+        2. Loop through the matrix a second time, and check if the current cell's row is in the rows_to_be_zeroed_set or
+        columns_to_be_zeroed_set. If the current cell is in either set, then zero the value.
+        3. Time: O(m*n), Space: O(m+n), where m = # of rows, and n = # of columns
         """
+        m = len(matrix)
+        n = len(matrix[0])
+
+        rows_to_be_zeroed_set = set()
+        columns_to_be_zeroed_set = set()
+
+        for row in range(m):
+            for column in range(n):
+                if matrix[row][column] == 0:
+                    rows_to_be_zeroed_set.add(row)
+                    columns_to_be_zeroed_set.add(column)
+
+        for row in range(m):
+            for column in range(n):
+                if row in rows_to_be_zeroed_set:
+                    matrix[row][column] = 0
+                if column in columns_to_be_zeroed_set:
+                    matrix[row][column] = 0
+
