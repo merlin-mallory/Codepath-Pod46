@@ -19,7 +19,7 @@ class Solution:
         m == matrix.length
         n == matrix[0].length
         1 <= m, n <= 200
-        -2^31 <= matrix[i][j] <= 2^31 - 1
+        -231 <= matrix[i][j] <= 231 - 1
 
         Follow up:
 
@@ -27,5 +27,3 @@ class Solution:
         A simple improvement uses O(m + n) space, but still not the best solution.
         Could you devise a constant space solution?
         """
-
-
