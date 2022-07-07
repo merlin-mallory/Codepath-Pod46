@@ -32,5 +32,34 @@ class Solution:
         The number of the nodes in the list is in the range [0, 10^4].
         -10^5 <= Node.val <= 10^5
         pos is -1 or a valid index in the linked-list.
+
+        Plan:
+        1. We will use the fast/slow pointer strategy. If the slow pointer reaches the end of the LL without matching
+        the fast pointer, then we will know that we have a cycle in the LL.
+        2. Set slow_pointer = head
+        3. Set fast_pointer = head.next
+        4. Loop through both pointers, iterating slow_pointer by 1, and fast_pointer by 2. If at any point they point
+        to the same node, then return false. Otherwise, after the slow pointer reaches the tail, return True.
+        5. Time: O(n), Space: O(1)
         '''
 
+        if not head:
+            return False
+
+        if head.next is None:
+            return False
+
+        slow_pointer = head
+        fast_pointer = head.next
+
+        while slow_pointer.next is not None and fast_pointer.next is not None:
+            if slow_pointer == fast_pointer:
+                return True
+
+            slow_pointer = slow_pointer.next
+            if fast_pointer.next.next is not None:
+                fast_pointer = fast_pointer.next.next
+            elif fast_pointer.next is not None:
+                fast_pointer = fast_pointer.next
+
+        return False
