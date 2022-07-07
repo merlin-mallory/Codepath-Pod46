@@ -1,3 +1,6 @@
+import collections
+
+
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         '''
@@ -17,4 +20,18 @@ class Solution:
 
         Input: nums = [3,3], target = 6
         Output: [0,1]
+
+        Plan:
+        1. Create a complement_dict (keys: nums[i], values: (complement, index of key)
+        2. Loop through nums to create the complement dict.
+        3. Loop through the complement dict, and search for a match with the complement. If a match is found,
+        then return the matching indexes.
+
+        Constraints:
+
         '''
+
+        for i in range(len(nums)):
+            for j in range(i):
+                if nums[i] + nums[j] == target:
+                    return [i,j]
