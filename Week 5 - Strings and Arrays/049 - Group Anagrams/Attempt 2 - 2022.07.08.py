@@ -23,5 +23,24 @@ class Solution:
         0 <= strs[i].length <= 100
         strs[i] consists of lowercase English letters.
 
-
+        Plan:
+        1. Create a anagram_to_val_dict. Keys: sorted anagrams, values: list of anagrams matching the sorted value.
+        2. Loop through strs and fill up the dictionary
+        3. Create a final_array, loop through the dictionary, and add each anagram's list the the final array.
+        4. Return the final array.
         '''
+        if not strs:
+            return [[]]
+        if strs == [""]:
+            return [[""]]
+
+        anagram_to_val_dict = collections.defaultdict(list)
+
+        for string in strs:
+            this_str_sorted = str(sorted(string))
+            anagram_to_val_dict[this_str_sorted].append(string)
+
+        final_arr = []
+        for key in anagram_to_val_dict.keys():
+            final_arr.append(anagram_to_val_dict.get(key))
+        return final_arr
