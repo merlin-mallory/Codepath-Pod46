@@ -24,3 +24,17 @@ class Solution:
         The number of nodes in the tree is in the range [0, 105].
         -1000 <= Node.val <= 1000
         '''
+        import collections
+
+        if not root:
+            return 0
+
+        queue = collections.deque([(root, 1)])
+        while queue:
+            current_node, current_depth = queue.popleft()
+            if current_node.left is None and current_node.right is None:
+                return current_depth
+            if current_node.left:
+                queue.append((current_node.left, current_depth+1))
+            if current_node.right:
+                queue.append((current_node.right, current_depth+1))
