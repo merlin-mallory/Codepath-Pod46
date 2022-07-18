@@ -15,6 +15,18 @@ class Solution:
 
         Constraints:
         1 <= nums.length <= 10^5
-        -10^9 <= nums[i] <= 10^9a
+        -10^9 <= nums[i] <= 10^9
+
+        Plan:
+        1. Create visited_set
+        2. Loop through nums, check if nums[i] in visited_set. If it is, then return True. Otherwise, add nums[i] to
+        visited_set. If the loop completes, then return False.
         '''
 
+        visited_set = set()
+        for i in range(len(nums)):
+            if nums[i] in visited_set:
+                return True
+            else:
+                visited_set.add(nums[i])
+        return False
