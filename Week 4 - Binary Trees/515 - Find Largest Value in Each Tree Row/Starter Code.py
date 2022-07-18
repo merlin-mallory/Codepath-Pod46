@@ -17,7 +17,7 @@ class Solution:
         Output: [1,3]
 
         Constraints:
-        The number of nodes in the tree will be in the range [0, 104].
-        -231 <= Node.val <= 231 - 1
+        The number of nodes in the tree will be in the range [0, 10^4].
+        -2^31 <= Node.val <= 2^31 - 1
         '''
 
