@@ -37,8 +37,9 @@ class Solution:
             5. counter++
             6. Return counter
         """
+        import collections
 
-        queue = deque()
+        queue = collections.deque()
 
         # Step 1). build the initial set of rotten oranges
         fresh_oranges = 0
