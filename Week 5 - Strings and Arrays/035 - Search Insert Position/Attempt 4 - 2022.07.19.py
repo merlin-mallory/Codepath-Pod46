@@ -23,6 +23,33 @@ class Solution:
         -10^4 <= nums[i] <= 10^4
         nums contains distinct values sorted in ascending order.
         -10^4 <= target <= 10^4
+
+        1. Binary search algorithm
+        2. left = 0, right = len(nums)-1
+        3. mid = (left + right) // 2
+        4. While right >= left:
+            5. If nums[mid] < target, then left = mid. Else if nums[mid] > target, then right = mid.
+            Else if nums[mid] == target, then return mid.
+        6. Return right (or left?)
         '''
 
+        left = 0
+        right = len(nums)-1
 
+        while right >= left:
+            mid = (left+right) // 2
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] < target:
+                left = mid+1
+            elif nums[mid] > target:
+                right = mid-1
+
+        return left
+
+        # target: 7
+        # left: 0, right: 3, mid: 1, mid_value: 3, 3<7, so left = 1+1=2
+        # left: 2, right: 3, mid: 2, mid_value: 5, 5<7, so left = 2+1=3
+        # left: 3, right: 3, mid: 3, mid_value: 6, 6<7, so left = 3+1 = 4
+        # Loop breaks because left > right, left = 3, left =4. If a 7 existed, it would be in index 4. So we want to
+        # return left.
