@@ -1,5 +1,5 @@
 class Solution:
-    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+    def canVisitAllRooms(self, rooms) -> bool:
         '''
         https://leetcode.com/problems/keys-and-rooms/
 
@@ -32,7 +32,25 @@ class Solution:
         1 <= sum(rooms[i].length) <= 3000
         0 <= rooms[i][j] < n
         All the values of rooms[i] are unique.
+
+        Plan:
+        1. Create visited_rooms_set
+        2. Create unlock_room helper function. It adds the current room to the visited_rooms_set, and it loops through
+        all of the keys in the room, and recursively explores each unvisited room.
+        3. After the recursion finishes, return len(visited_room_set) == len(rooms)
         '''
+
+        visited_rooms_set = set()
+
+        def unlock_room(room_index):
+            visited_rooms_set.add(room_index)
+            for key in rooms[room_index]:
+                if key not in visited_rooms_set:
+                    unlock_room(key)
+
+        unlock_room(0)
+
+        return len(visited_rooms_set) == len(rooms)
 
 result = Solution()
 print(result.canVisitAllRooms([[1],[2],[3],[]]))        # True
