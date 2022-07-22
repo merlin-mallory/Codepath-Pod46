@@ -52,16 +52,16 @@ class Solution:
                 return [l + 1, r + 1]
 
         # My O(n) space solution
-        numbers_set = set(numbers)
-        first_pass_index = -1
-        desired_complement = -1
-
-        for index, ele in enumerate(numbers):
-            if target-ele in numbers_set:
-                first_pass_index = index
-                desired_complement = target-ele
-                break
-
-        for i in range(first_pass_index+1, len(numbers)):
-            if numbers[i] == desired_complement:
-                return [first_pass_index+1, i+1]
+        # numbers_set = set(numbers)
+        # first_pass_index = -1
+        # desired_complement = -1
+        #
+        # for index, ele in enumerate(numbers):
+        #     if target-ele in numbers_set:
+        #         first_pass_index = index
+        #         desired_complement = target-ele
+        #         break
+        #
+        # for i in range(first_pass_index+1, len(numbers)):
+        #     if numbers[i] == desired_complement:
+        #         return [first_pass_index+1, i+1]
