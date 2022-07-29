@@ -19,3 +19,8 @@ class Solution:
         1 <= nums.length <= 10^5
         -10^4 <= nums[i] <= 10^4
         """
+
+result = Solution()
+print(result.maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
+print(result.maxSubArray([1]))
+print(result.maxSubArray([5,4,-1,7,8]))
