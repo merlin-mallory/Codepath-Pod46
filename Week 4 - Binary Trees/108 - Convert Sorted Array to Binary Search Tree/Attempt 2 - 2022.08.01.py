@@ -27,4 +27,23 @@ class Solution:
         1 <= nums.length <= 10^4
         -10^4 <= nums[i] <= 10^4
         nums is sorted in a strictly increasing order.
+
+        Plan:
+        1. We have a sorted array, so we want to do an in-order traversal. Left, process, right.
+        2. Calculate the mid index, make that the root of the tree.
+        3. root.left = mid//2
         '''
+
+        # Attempt 4: Optimal solution
+        # Time: O(n)
+        # Space: O(n)
+        def convert(left, right):
+            if left > right:
+                return None
+            mid = (left + right) // 2
+            node = TreeNode(nums[mid])
+            node.left = convert(left, mid - 1)
+            node.right = convert(mid + 1, right)
+            return node
+
+        return convert(0, len(nums) - 1)
