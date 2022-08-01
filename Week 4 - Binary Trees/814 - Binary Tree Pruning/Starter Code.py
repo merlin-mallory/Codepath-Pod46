@@ -28,11 +28,19 @@ class Solution:
         Node.val is either 0 or 1.
 
         Plan:
-        1. We will do an in-order traversal the tree, keeping track of the parent's location and direction of the child.
-           whenever we encounter a 0, we will set parent.direction to None.
-        2. Time complexity: In-order traversal is O(n) time complexity, because we need to explore every node,
-        and do O(1) work on each node.
-        3. Space complexity: We are not creating any additional data structures, so the space complexity will equal
-        the maximum size of the recursive call stack, which would be O(n) in a linear tree, or O(log n) in a balanced
-        tree.
+        1. DFS post-order traverse the tree, deleteing nodes that contain zero from the bottom of the tree towards
+        the top.
+        2. Return the resultant tree
         '''
+        current_node = root
+
+        def helper(current_node):
+            if current_node.left:
+                current_node.left = helper(current_node.left)
+            if current_node.right:
+                current_node.right = helper(current_node.right)
+            if current_node.val != 1 and current_node.left is None and current_node.right is None:
+                current_node = None
+            return current_node
+
+        return helper(root)
