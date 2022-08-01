@@ -48,6 +48,17 @@ class Solution:
 
         return max(0, max_profit[-1])
 
+        # Optimal One Pass, O(n) time O(1) space
+        # min_price = float('inf')
+        # max_profit = 0
+        # for i in range(len(prices)):
+        #     if prices[i] < min_price:
+        #         min_price = prices[i]
+        #     elif prices[i] - min_price > max_profit:
+        #         max_profit = prices[i] - min_price
+        #
+        # return max_profit
+
 
 
         # Brute Force is time limit exceeded
