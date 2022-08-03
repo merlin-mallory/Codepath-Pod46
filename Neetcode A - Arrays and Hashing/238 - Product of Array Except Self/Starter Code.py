@@ -1,3 +1,4 @@
+from typing import List
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         '''
@@ -24,3 +25,7 @@ class Solution:
         Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as
         extra space for space complexity analysis.)
         '''
+
+result = Solution()
+print(result.productExceptSelf([1,2,3,4]))  # [24,12,8,6]
+print(result.productExceptSelf([-1,1,0,-3,3]))  # [0,0,9,0,0]
