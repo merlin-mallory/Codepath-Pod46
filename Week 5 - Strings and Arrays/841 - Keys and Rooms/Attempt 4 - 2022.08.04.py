@@ -33,7 +33,25 @@ class Solution:
         1 <= sum(rooms[i].length) <= 3000
         0 <= rooms[i][j] < n
         All the values of rooms[i] are unique.
+
+        Plan:
+        1. Create a helper function unlock_room. It takes an index, adds that index to the visited_rooms_set,
+        and recursively explores all of the keys in the room that are not already in visited_rooms_set.
+        2. At the end of the recursion, we check if the len of visited_rooms_set equals the len of rooms. If there's
+        a match, then we've explored all rooms, so return True. Otherwise, return False.
         '''
+        visited_rooms_set = set()
+        def unlock_room(index):
+            visited_rooms_set.add(index)
+            this_rooms_keys = rooms[index]
+            for key in this_rooms_keys:
+                if key not in visited_rooms_set:
+                    unlock_room(key)
+        unlock_room(0)
+        if len(visited_rooms_set) == len(rooms):
+            return True
+        else:
+            return False
 
 result = Solution()
 print(result.canVisitAllRooms([[1],[2],[3],[]]))        # True
