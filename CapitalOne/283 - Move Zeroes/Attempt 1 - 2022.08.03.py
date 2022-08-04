@@ -35,6 +35,7 @@ class Solution:
         slow = 0
         for fast in range(len(nums)):
             if nums[fast] != 0 and nums[slow] == 0:
+                print("Nums before swap:", nums)
                 nums[slow], nums[fast] = nums[fast], nums[slow]
                 print("Nums after swap:", nums)
 
