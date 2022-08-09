@@ -38,22 +38,22 @@ class Solution:
         # worked fine, my result passed the more normal test cases. I didn't really understand the syntax
 
         # Eliminate all dashes
-        S = S.replace('-', '')
-
-        head = len(S) % K
+        s = s.replace('-', '').upper()
+        print(type(s))
+        head = len(s) % k
 
         grouping = []
 
         # Special handle for first group
         if head:
-            grouping.append(S[:head])
+            grouping.append(s[:head])
 
         # General case:
-        for index in range(head, len(S), K):
-            grouping.append(S[index: index + K])
+        for index in range(head, len(s), k):
+            grouping.append(s[index: index + k])
 
         # Link each group togetger and separated by dash '-'
-        return '-'.join(grouping).upper()
+        return '-'.join(grouping)
 
         # My failed attempt:
         # final_arr = []
