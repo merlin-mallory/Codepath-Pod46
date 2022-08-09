@@ -36,6 +36,7 @@ class Solution:
         prime_arr = [False, False] + [True] * (n-2)
 
         for i in range(2, int(math.sqrt(n))+1):
+            print(i)
             if prime_arr[i]:
                 for j in range(i*i, n, i):
                     prime_arr[j] = False
