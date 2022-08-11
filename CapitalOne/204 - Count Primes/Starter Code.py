@@ -23,3 +23,5 @@ result = Solution()
 print(result.countPrimes(10))   # 4
 print(result.countPrimes(0))    # 0
 print(result.countPrimes(1))    # 0
+print(result.countPrimes(5))    # 2
+print(result.countPrimes(3))    # 1
