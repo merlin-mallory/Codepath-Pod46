@@ -30,6 +30,30 @@ class Solution:
         nums1 and nums2 both are sorted in ascending order.
         1 <= k <= 10^4
         '''
+        import heapq
+        final_arr = []
+        minheap = []
+        heapq.heappush(minheap, (0, 0, 0))
+        visited = set()
+        visited.add((0, 0, 0))
+
+        while len(final_arr) < k and minheap:
+            _, left_i, right_i = heapq.heappop(minheap)
+            final_arr.append([nums1[left_i], nums2[right_i]])
+
+            if left_i+1 <= len(nums1)-1:
+                option1_tup = (nums1[left_i+1] + nums2[right_i], left_i+1, right_i)
+                if option1_tup not in visited:
+                    heapq.heappush(minheap, option1_tup)
+                    visited.add(option1_tup)
+
+            if right_i+1 <= len(nums2)-1:
+                option2_tup = (nums1[left_i] + nums2[right_i + 1], left_i, right_i+1)
+                if option2_tup not in visited:
+                    heapq.heappush(minheap, option2_tup)
+                    visited.add(option2_tup)
+
+        return final_arr
 
 result = Solution()
 print(result.kSmallestPairs([1,7,11], [2,4,6], 3))  # [[1,2],[1,4],[1,6]]
