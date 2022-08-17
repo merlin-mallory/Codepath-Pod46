@@ -19,5 +19,13 @@ class Solution:
         Constraints:
         The number of nodes in the list is in the range [1, 10^5].
         0 <= Node.val <= 9
-        """
 
+        Plan:
+        1. Convert the LL to an array.
+        2. Do the palindrome check.
+        """
+        palindrome_arr = []
+        while head is not None:
+            palindrome_arr.append(head.val)
+            head = head.next
+        return palindrome_arr == palindrome_arr[::-1]
