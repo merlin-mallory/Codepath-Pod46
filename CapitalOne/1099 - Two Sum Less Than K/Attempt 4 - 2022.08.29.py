@@ -17,7 +17,28 @@ class Solution:
         1 <= nums.length <= 100
         1 <= nums[i] <= 1000
         1 <= k <= 2000
+
+        Plan:
+        1. Sort the array (smallest to largest)
+        2. left = 0, right = len(nums)-1, sum = -1
+        3. If nums[left] + nums[right] > k, then right -= 1.
+        4. If nums[left] + nums[right] > sum and < k, then sum = this val, and left += 1
+        5. If nums[left] + nums[right] <= sum and < k, then left += 1
+        6. Loop ends when left > right, return sum
         """
+
+        nums.sort()
+        left, right, current_sum = 0, len(nums)-1, -1
+        while left < right:
+            current_val = nums[left] + nums[right]
+            if current_val < k:
+                current_sum = max(current_sum, current_val)
+                left += 1
+            else:
+                right -= 1
+
+        return current_sum
+
 
 result = Solution()
 print(result.twoSumLessThanK([34,23,1,24,75,33,54,8], 60))  # 58
