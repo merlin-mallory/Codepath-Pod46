@@ -25,3 +25,7 @@ class Solution:
         Constraints:
         1 <= n <= 2^31 - 1
         '''
+
+result = Solution()
+print(result.isHappy(19))   # True
+print(result.isHappy(2))    # False
