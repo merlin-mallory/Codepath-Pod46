@@ -25,3 +25,8 @@ class Solution:
         s consists of only uppercase English letters.
         0 <= k <= s.length
         '''
+
+result = Solution()
+print(result.characterReplacement("ABAB", 2))       # 2
+print(result.characterReplacement("AABABBA", 1))    # 4
+
