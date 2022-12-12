@@ -53,7 +53,7 @@ class Solution:
 
         return res
 
-        # Heap works, but it's actually k(log(n)).
+        # Heap works, but it's actually n(log(k)).
         # There is a O(n) solution using bucket sort
 
         # count = {}
