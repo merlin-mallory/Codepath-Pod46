@@ -29,7 +29,28 @@ class Solution:
         Constraints:
         3 <= nums.length <= 3000
         -10^5 <= nums[i] <= 10^5
+
+        Plan:
+        1. Outer loop goes through i, inner loop calculates if there's a two sum that is equal to -i. If a match is
+        found, then append that triplet to the final arr. Return the final_arr.
+        2. Time complexity: O(n^2), Space: O(1).
         """
+        final_arr = []
+
+        for i in range(len(nums)):
+            desired_complement = nums[i] * -1
+            l, r = i+1, len(nums)-1
+            while l < r:
+                current_sum = nums[l] + nums[r]
+                if current_sum < desired_complement:
+                    l += 1
+                elif current_sum > desired_complement:
+                    r -= 1
+                else:
+                    final_arr.append([nums[i], nums[l], nums[r]])
+
+        return final_arr
+
 
 result = Solution()
 print(result.threeSum([-1,0,1,2,-1,-4]))    # [[-1,-1,2],[-1,0,1]]
