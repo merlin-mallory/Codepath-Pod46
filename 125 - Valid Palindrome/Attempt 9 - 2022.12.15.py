@@ -26,4 +26,16 @@ class Solution:
 
         1 <= s.length <= 2 * 10^5
         s consists only of printable ASCII characters.
+
+        Plan:
+        1. clean the string by removing all non-alphanumeric charcters.
+        2. Do the palindrome check.
+        3. Time: O(n), space: O(n).
         '''
+        sanitized_s = []
+        for i in range(len(s)):
+            if s[i].isalnum():
+                sanitized_s.append(s[i].lower())
+        return sanitized_s == sanitized_s[::-1]
+
+
