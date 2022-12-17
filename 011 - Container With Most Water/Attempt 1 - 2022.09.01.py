@@ -48,3 +48,26 @@ class Solution:
 result = Solution()
 print(result.maxArea([1,8,6,2,5,4,8,3,7]))  # 49
 print(result.maxArea([1,1]))                # 1
+
+# Neetcode
+# def maxProfit(self, prices: List[int]) -> int:
+#         res = 0
+#
+#         l = 0
+#         for r in range(1, len(prices)):
+#             if prices[r] < prices[l]:
+#                 l = r
+#             res = max(res, prices[r] - prices[l])
+#         return res
+
+# Leetcode
+# def maxProfit(self, prices: List[int]) -> int:
+#         min_price = float('inf')
+#         max_profit = 0
+#         for i in range(len(prices)):
+#             if prices[i] < min_price:
+#                 min_price = prices[i]
+#             elif prices[i] - min_price > max_profit:
+#                 max_profit = prices[i] - min_price
+#
+#         return max_profit
