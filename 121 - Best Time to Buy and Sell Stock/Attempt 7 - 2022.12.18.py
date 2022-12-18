@@ -23,7 +23,22 @@ class Solution:
 
         1 <= prices.length <= 10^5
         0 <= prices[i] <= 10^4
+
+        Plan:
+        1. Looks like two pointers. l = 0, r = 1, max_profit = 0, min_price = prices[0].
+        2. Loop through prices[1] to the end of the array.
+            3. If we've found a new low price, then update min_price, and set l=r, and r+1.
+            4. Otherwise, calculate current_profit. If current_profit > 0, then update max_profit, and then r+1.
+            5. Otherwise, if current profit <= 0, then l+1.
+        6. Return max_profit
         """
+        max_profit, min_price = 0, prices[0]
+        for i in range(1, len(prices)):
+            if prices[i] < min_price:
+                min_price = prices[i]
+            else:
+                max_profit = max(max_profit, (prices[i] - min_price))
+        return max_profit
 
 
 result = Solution()
