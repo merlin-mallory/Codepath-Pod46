@@ -27,6 +27,6 @@ class Solution:
         '''
 
 result = Solution()
-print(result.characterReplacement("ABAB", 2))       # 2
+print(result.characterReplacement("ABAB", 2))       # 4
 print(result.characterReplacement("AABABBA", 1))    # 4
 
