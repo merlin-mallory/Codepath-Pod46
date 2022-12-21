@@ -45,45 +45,29 @@ class Codec:
     def encode(self, strs: List[str]) -> str:
         """Encodes a list of strings to a single string.
         """
-        res = ""
-        for s in strs:
-            res += str(len(s)) + "#" + s
-        return res
+        encoded_str = ""
+        for string in strs:
+            encoded_str = encoded_str + str(len(string)) + "#" + string
+        return encoded_str
 
     def decode(self, s: str) -> List[str]:
         """Decodes a single string to a list of strings.
         """
-        res, i = [], 0
-
+        decoded_str = []
+        i = 0
         while i < len(s):
-            j = i
-            while s[j] != "#":
-                j += 1
-            length = int(s[i:j])
-            res.append(s[j + 1: j + 1 + length])
-            i = j + 1 + length
-        return res
+            counter_str = ""
+            while s[i].isdigit():
+                counter_str = counter_str + s[i]
+                i += 1
+            str_len = int(counter_str)
+            i += 1
+            sliced_str = s[i:(i+str_len)]
+            decoded_str.append(sliced_str)
+            i += str_len
+        return decoded_str
+
 
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
 # codec.decode(codec.encode(strs))
-
-
-# Neetcode
-# def encode(self, strs):
-#         res = ""
-#         for s in strs:
-#             res += str(len(s)) + "#" + s
-#         return res
-#
-#     def decode(self, s):
-#         res, i = [], 0
-#
-#         while i < len(s):
-#             j = i
-#             while s[j] != "#":
-#                 j += 1
-#             length = int(s[i:j])
-#             res.append(s[j + 1 : j + 1 + length])
-#             i = j + 1 + length
-#         return res
