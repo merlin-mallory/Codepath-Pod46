@@ -18,8 +18,6 @@ class Solution:
         1 <= s1.length, s2.length <= 104
         s1 and s2 consist of lowercase English letters.
         """
-        sorted_s1 = sorted(s1)
-        sorted_s2 = sorted(s2)
 
 result = Solution()
 print(result.checkInclusion("ab", "eidbaooo"))  # True
