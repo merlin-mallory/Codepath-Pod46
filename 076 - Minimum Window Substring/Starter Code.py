@@ -1,7 +1,7 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         '''
-        Minimum Window Substring
+        567 - Minimum Window Substring
 
         https://leetcode.com/problems/minimum-window-substring/
 
@@ -34,22 +34,10 @@ class Solution:
         n == t.length
         1 <= m, n <= 105
         s and t consist of uppercase and lowercase English letters.
-
-        Plan:
-        Sliding Window
-        1. Handle edge case where len(t) > len(s).
-        2. Create tCounts dict. Keys: Chars in t, Values: Count of keys.
-        3. Create sWindow dict. Starts empty, but will contain Keys: Chars in t's window, and Values: Count of keys.
-        4. Initialize l = 0
-        5. Loop with r until end of s.
-            6. Add s[r] to sWindow
-            7. If r > len(t), then
-                8.
-
         '''
 
 
-result = Solution
+result = Solution()
 
 print(result.minWindow("ADOBECODEBANC", "ABC")) # "ABC"
 print(result.minWindow("a", "a"))               # "a"
