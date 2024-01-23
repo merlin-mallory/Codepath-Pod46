@@ -35,4 +35,24 @@ class Solution:
         The tests are generated such that there is exactly one solution.
 
         I must use O(1) space.
+
+        Plan:
+        Two Pointers
+        1. Initialize l=0, r = len(numbers)-1.
+        2. Loop while l < r
+            3. Check if twoSum > target. If it is, then we need a smaller result, so r--.
+            4. Check if twoSum < target. If it is, then we need a larger result, so l++.
+            5. Otherwise twoSum == target, so return [l+1, r+1] (because we need to offset by 1)
+        We are guarenteeing that there is only one solution in numbers, and len(numbers) >= 2, so no edge cases.
+        Time: O(n), Space: O(1)
         """
+        l, r = 0, len(numbers)-1
+
+        while l < r:
+            twoSum = numbers[l] + numbers[r]
+            if twoSum > target:
+                r -= 1
+            elif twoSum < target:
+                l += 1
+            else:
+                return [l+1, r+1]
