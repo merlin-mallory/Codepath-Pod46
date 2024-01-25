@@ -19,31 +19,35 @@ class Solution:
         s1 and s2 consist of lowercase English letters.
 
         Plan:
-        Sliding Window
-        1. Create s1dict. Keys: chars in s1, Values: Counts of keys.
-        2. Create s2window. Keys: chars in the current window for s2, Values: Counts of keys.
-        3. l = 0, r Loops through s2.
-            4. Add s2[r] to s2window
-            4. If r >= len(s1), then check if s1window[s2[r - len(s1)] >= s2window[s2[r - len(s1)]]
+        1. Create s1_counts. Keys: Chars in s1, Values: Count of keys.
+        2. Create s2_window. Initialized empty, but will contain Keys: Chars in current window, and Values: Count of
+        keys.
+        3. l = 0
+        4. Loop r until end of s2[r].
+            5. Add s2[r] to s2_window.
+            6. If r >= len(s1_counts)
+                7. Subtract s2[l] from s2_window, and iterate l
+            8. Check if s1_counts == s2_window. This means we found a match, so return true
+        9. Otherwise, if r reaches the end and we haven't found a match, then return false.
         """
         import collections
-        s1_dict = collections.Counter(s1)
+        s1_counts = collections.Counter(s1)
         s2_window = collections.Counter()
 
         for i in range(len(s2)):
             s2_window[s2[i]] += 1
 
             if i >= len(s1):
-                # Delete the left term
                 if s2_window[s2[i - len(s1)]] == 1:
-                    del s2_window[s2[i - len(s1)]]
+                    del(s2_window[i - len(s1)])
                 else:
                     s2_window[s2[i - len(s1)]] -= 1
 
-            if s1_dict == s2_window:
+            if s1_counts == s2_window:
                 return True
 
         return False
+
 
 result = Solution()
 print(result.checkInclusion("ab", "eidbaooo"))  # True
