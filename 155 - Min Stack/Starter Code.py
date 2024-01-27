@@ -44,15 +44,17 @@ class MinStack:
         At most 3 * 10^4 calls will be made to push, pop, top, and getMin.
         '''
 
-
     def push(self, val: int) -> None:
+        return None
 
     def pop(self) -> None:
+        return None
 
     def top(self) -> int:
+        return 0
 
     def getMin(self) -> int:
-
+        return 0
 
 # Your MinStack object will be instantiated and called as such:
 # obj = MinStack()
