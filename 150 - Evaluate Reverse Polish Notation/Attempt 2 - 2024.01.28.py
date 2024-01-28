@@ -44,7 +44,39 @@ class Solution:
 
         1 <= tokens.length <= 10^4
         tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the range [-200, 200].
+
+        Plan:
+        Stack
+        1. Initialize stack.
+        2. Loop through tokens.
+            3. Check if token is a number. If so, then int it, and append it to the stack.
+            4. Otherwise, we know that token is an operator. So we need to handle each one individually.
+                5. Pop twice from the stack. The first one will be the right_val, the second one will be the left_val.
+                6. Addition: left_val + right_val
+                7. Subtraction: left_val - right_val
+                8. Multiplication: left_val * right_val
+                9. Division: left_val / right_val. And then use int() to truncate towards 0.
+        10. After the loop finishes, the final value should be the only value in the stack, so return stack[0].
         '''
+        stack = []
+        for token in tokens:
+            if token.lstrip('-').isdigit():
+                stack.append(int(token))
+            else:
+                right_val, left_val = stack.pop(), stack.pop()
+                if token == "+":
+                    result = left_val + right_val
+                elif token == "-":
+                    result = left_val - right_val
+                elif token == "*":
+                    result = left_val * right_val
+                else:   #token = "/"
+                    result = left_val / right_val
+                    result = int(result)
+
+                stack.append(result)
+
+        return stack[0]
 
 
 result = Solution()
