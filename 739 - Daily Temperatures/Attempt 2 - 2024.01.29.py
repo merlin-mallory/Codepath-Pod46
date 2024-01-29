@@ -23,30 +23,15 @@ class Solution:
         30 <= temperatures[i] <= 100
 
         Plan:
-        1. Create final_arr.
-        2. Outer loop through temperatures.
-            3. Inner loop i+1
-                4. counter = 0
-                5. If temperatures[j] <= temperatures[i], then counter++ and j++.
-                6. Otherwise,  final_arr.append(counter), and j++
-        7. Return final_arr
-        Edge Case: None
-        Time: O(n^2)
-        Space: O(1) (if final_arr doesn't count)
+        Stack
+        1. Init answer = [0] * len(temperatures), stack =[]
+        2. l = 0, r = 0
+        3. Loop while l < len(temperatures)
+            4.
+            10. l++
         '''
-        final_arr = [0] * len(temperatures)
-        stack = []
-
-        for i,t in enumerate(temperatures):
-            while stack and t > stack[-1][0]:
-                stackT, stackInd = stack.pop()
-                final_arr[stackInd] = (i - stackInd)
-            stack.append([t, i])
-        return final_arr
 
 result = Solution()
 print(result.dailyTemperatures([73,74,75,71,69,72,76,73]))  # [1,1,4,2,1,1,0,0]
 print(result.dailyTemperatures([30,40,50,60]))              # [1,1,1,0]
 print(result.dailyTemperatures([30,60,90]))                 # [1,1,0]
-
-# Hint: Monotonic decreasing stack
