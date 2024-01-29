@@ -13,7 +13,6 @@ class Solution:
         Return the max sliding window.
 
         Example 1:
-
         Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
         Output: [3,3,5,5,6,7]
         Explanation:
@@ -25,14 +24,12 @@ class Solution:
          1  3  -1 [-3  5  3] 6  7       5
          1  3  -1  -3 [5  3  6] 7       6
          1  3  -1  -3  5 [3  6  7]      7
-        Example 2:
 
+        Example 2:
         Input: nums = [1], k = 1
         Output: [1]
 
-
         Constraints:
-
         1 <= nums.length <= 10^5
         -10^4 <= nums[i] <= 10^4
         1 <= k <= nums.length
