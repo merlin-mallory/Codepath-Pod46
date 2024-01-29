@@ -12,24 +12,22 @@ class Solution:
         The testcases will be generated such that the answer is unique.
 
         Example 1:
-
         Input: s = "ADOBECODEBANC", t = "ABC"
         Output: "BANC"
         Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
-        Example 2:
 
+        Example 2:
         Input: s = "a", t = "a"
         Output: "a"
         Explanation: The entire string s is the minimum window.
-        Example 3:
 
+        Example 3:
         Input: s = "a", t = "aa"
         Output: ""
         Explanation: Both 'a's from t must be included in the window.
         Since the largest window of s only has one 'a', return empty string.
 
         Constraints:
-
         m == s.length
         n == t.length
         1 <= m, n <= 105
@@ -39,6 +37,6 @@ class Solution:
 
 result = Solution()
 
-print(result.minWindow("ADOBECODEBANC", "ABC")) # "ABC"
+print(result.minWindow("ADOBECODEBANC", "ABC")) # "BANC"
 print(result.minWindow("a", "a"))               # "a"
 print(result.minWindow("a", "aa"))              # ""
