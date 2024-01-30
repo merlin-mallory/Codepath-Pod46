@@ -24,12 +24,19 @@ class Solution:
 
         Plan:
         Stack
-        1. Init answer = [0] * len(temperatures), stack =[]
-        2. l = 0, r = 0
-        3. Loop while l < len(temperatures)
-            4.
-            10. l++
+        1. Init answer = [0] * len(temperatures). Init pairs = [], which will contain (value, index) tuples
+        2. Loop through pairs.
+            3. If temperatures[i][0] < stack[-1], then we found a value. answer[i] = i - index.
         '''
+        final_arr = [0] * len(temperatures)
+        stack = []
+
+        for right_i, right_val in enumerate(temperatures):
+            while stack and right_val > stack[-1][0]:
+                left_val, left_i = stack.pop()
+                final_arr[left_i] = (right_i - left_i)
+            stack.append([right_val, right_i])
+        return final_arr
 
 result = Solution()
 print(result.dailyTemperatures([73,74,75,71,69,72,76,73]))  # [1,1,4,2,1,1,0,0]
