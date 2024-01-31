@@ -49,10 +49,35 @@ class Solution:
         0 <= position[i] < target
         All the values of position are unique.
         0 < speed[i] <= 10^6
+
+        Plan:
+        Stack
+        1. stack = [], cars = [] (will hold subarrays containing [position[i], speed[i]])
+        2. Reverse sort cars, so the car in the position closest to the target will be in the zero-index.
+        3. Loop through cars, from the closest car to the target, to the furthest car from the target.
+            4. Append time_finished ((target - pos)/speed) to the stack.
+            5. If there are 2 or more elements on the stack, then compare stack[-1] with stack[-2]. If stack[-1]'s
+            time_finished is less than stack[-2], then that means they will form a car fleet before the destination
+            is reached. So stack.pop(). Otherwise, we've found a new fleet, and we'll use that time_finished to
+            compare with subsequent cars to see if they form extra fleets, so we'll just let the len of stack
+            increase by 1.
+        6. Return the len of the stack.
         '''
+        stack = []
+        cars = []
+        for i in range(len(speed)):
+            cars.append([position[i], speed[i]])
+        cars = sorted(cars)[::-1]
+
+        for pos, speed in cars:
+            stack.append((target - pos)/speed)
+            if len(stack) >= 2 and stack[-1] <= stack[-2]:
+                stack.pop()
+        return len(stack)
+
 
 
 result = Solution()
-print(result.carFleet(12, [10,8,0,5,3], [2,4,1,1,3]))
-print(result.carFleet(10, [3], [3]))
-print(result.carFleet(100, [0,2,4], [4,2,1]))
+print(result.carFleet(12, [10,8,0,5,3], [2,4,1,1,3]))   # 3
+print(result.carFleet(10, [3], [3]))                    # 1
+print(result.carFleet(100, [0,2,4], [4,2,1]))           # 1
