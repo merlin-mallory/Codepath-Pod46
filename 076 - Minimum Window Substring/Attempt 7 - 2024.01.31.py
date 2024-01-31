@@ -35,52 +35,50 @@ class Solution:
 
         Plan:
         Sliding Window
-        1. Create t_counts dict, init t. Keys: Chars in window, Values: Count of keys.
-        2. Create window dict, init empty. Keys: Chars in window, Values: Count of keys.
-        3. Init min_substring = [-1, -1], min_len = float('inf')
-        4. have = 0, need = len(t_counts)
-        5. l, r = 0, 0
-        6. Loop until r > len(s).
-            7. Add s[r] to window.
-            8. Loop while have == need
-                9. Calculate current_len
-                10. Update min_len and min_substring
-                11. Remove s[l] from window, and l++
-        12. Return min_len
+        1. Create the s_window dict. Initializing empty. Keys: Unique chars in s's window, Values: Count of keys.
+        2. Create the t_counts dict. Initialize with t. Keys: Unique chars in t, Value: Count of keys.
+        3. minimum_substring = float('inf').
+        4. have = 0, need = len(t_counts).
+        4. l = 0, r = 0
+        5. Loop r < len(s).
+            6. Add s[r] to s_window.
+            7. If s_window[s[r]] == t_counts[s[r]], then have++
+            8. If r >= len(t), then calculate current_len, update minimum_len, minimum_substring, and
+            s_window[s[l]] -= 1, l--
+            9. r++
+        10. Deconstruct minimum_substring and return the slice.
+        Edge Cases: None
+        Time: O(n)
+        Space: O(n)
         '''
-
         import collections
+        s_window = collections.Counter()
         t_counts = collections.Counter(t)
-        window = collections.Counter()
         min_substring = [-1, -1]
-        min_len = float('inf')
+        len_of_min_substring = float('inf')
         have, need = 0, len(t_counts)
         l, r = 0, 0
-
         while r < len(s):
-            window[s[r]] += 1
-
-            if window[s[r]] == t_counts[s[r]]:
+            s_window[s[r]] += 1
+            if s_window[s[r]] == t_counts[s[r]]:
                 have += 1
 
             while have == need:
                 current_len = r - l + 1
-                if current_len < min_len:
-                    min_len = current_len
-                    min_substring = l, r
-                if window[s[l]] == t_counts[s[l]]:
+                if current_len < len_of_min_substring:
+                    min_substring = [l, r]
+                    len_of_min_substring = current_len
+                if s_window[s[l]] == t_counts[s[l]]:
                     have -= 1
-                window[s[l]] -= 1
+                s_window[s[l]] -= 1
                 l += 1
-
             r += 1
-
         l, r = min_substring
-
-        if min_len == float('inf'):
+        if len_of_min_substring == float('inf'):
             return ""
         else:
             return s[l:r+1]
+
 
 
 result = Solution()
