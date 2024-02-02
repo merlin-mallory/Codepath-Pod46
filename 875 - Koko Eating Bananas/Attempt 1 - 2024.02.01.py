@@ -30,6 +30,7 @@ class Solution:
         piles.length <= h <= 10^9
         1 <= piles[i] <= 10^9
         '''
+        return 0
 
 result = Solution()
 print(result.minEatingSpeed([3,6,7,11], 8)
