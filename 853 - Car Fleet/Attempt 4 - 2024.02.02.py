@@ -49,7 +49,30 @@ class Solution:
         0 <= position[i] < target
         All the values of position are unique.
         0 < speed[i] <= 10^6
+
+        Plan:
+        Stack
+        1. Loop through positions and create pairs, with [position[i], time_to_finsh[i]].
+        2. Loop through pairs
+            3. Append [position[i], time_to_finish[i] to the stack.
+            3. If there's a stack and stack[-2][1] > pairs[-1][1], pop the stack.
+        4. Return the len of the stack.
         '''
+        stack = []
+        pairs = []
+
+        for i in range(len(position)):
+            pairs.append([position[i], (target - position[i])/speed[i]])
+
+        pairs = sorted(pairs)[::-1]
+
+        for r in range(len(pairs)):
+            stack.append(pairs[r])
+            if len(stack) >= 2 and stack[-1][1] <= stack[-2][1]:
+                stack.pop()
+
+        return len(stack)
+
 
 
 result = Solution()
