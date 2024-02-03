@@ -32,6 +32,6 @@ class Solution:
         '''
 
 result = Solution()
-print(result.minEatingSpeed([3,6,7,11], 8)
-print(result.minEatingSpeed([30,11,23,4,20], 5)
-print(result.minEatingSpeed([30,11,23,4,20], 6)
+print(result.minEatingSpeed([3,6,7,11], 8))
+print(result.minEatingSpeed([30,11,23,4,20], 5))
+print(result.minEatingSpeed([30,11,23,4,20], 6))
