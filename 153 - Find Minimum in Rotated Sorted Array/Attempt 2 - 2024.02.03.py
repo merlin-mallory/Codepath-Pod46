@@ -35,11 +35,40 @@ class Solution:
         All the integers of nums are unique.
         nums is sorted and rotated between 1 and n times.
 
-
+        Plan:
+        Binary Search
+        1. l = 0, r = len(nums-1), min_val = nums[0]
+        2. Loop while l <= r.
+            3. Check if nums[r] > nums[l]. This means the subarray is in sorted order, so we should update min_val
+            with nums[l].
+            4. Calculate m = (l + r) // 2.
+            5. If nums[m] > nums[0], then the mid is not in the lower half of the array. So set l = m+1.
+            6. Else, mid is in the lower half of the array. So set r = m-1.
+        7. Return min_val.
+        Time: O(log(n))
+        Space: O(1)
+        Edge: None
         """
+        min_val = nums[0]
+        l, r = 0, len(nums)-1
+        while l <= r:
+            if nums[l] < nums[r]:
+                min_val = min(min_val, nums[l])
+                break
+
+            m = (l+r) // 2
+            min_val = min(min_val, nums[m])
+
+            if nums[m] >= nums[l]:
+                l = m + 1
+            else:
+                r = m - 1
+
+        return min_val
 
 
 result = Solution()
-print(result.findMin([3,4,5,1,2]))      # 1
-print(result.findMin([4,5,6,7,0,1,2]))  # 0
-print(result.findMin([11,13,15,17]))    # 11
+print(result.findMin([3, 4, 5, 1, 2]))  # 1
+print(result.findMin([4, 5, 6, 7, 0, 1, 2]))  # 0
+print(result.findMin([11, 13, 15, 17]))  # 11
+print(result.findMin([2,1]))  # 1
