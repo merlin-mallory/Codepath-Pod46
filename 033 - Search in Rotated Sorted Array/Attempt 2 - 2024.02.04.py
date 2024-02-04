@@ -40,23 +40,23 @@ class Solution:
 
         Plan:
         Binary Search
-        1. l = 0, r = len(nums)-1
+        1. l = 0, r = len(nums)-1.
         2. Loop while l <= r.
-            3. Calculate mid. m = (l+r) // 2.
-            4. Check if mid == target. If so, return true.
-            5. Otherwise, check if mid > nums[l]. If so, then the left part of the array must contain values less
-            then mid. If the target is < mid, then we want to search the left half by setting r = mid - 1. Otherwise,
-            we should search the right half, by setting l = mid + 1.
-        6. If the loop finishes without finding the target, then we've confirmed that the target is not in the array,
-        so return False.
+            3. m = (l+r) // 2
+            4. m_val = nums[m]
+            5. If m_val == target, then return m.
+            6. Else if m_val > target, then the target should be to the right, so l = m +1
+            7. Otherwise r = m - 1
+        8. Return -1
         '''
         l, r = 0, len(nums)-1
         while l <= r:
-            m = (l+r) // 2
-            if nums[m] == target:
+            m = (l+r)//2
+            m_val = nums[m]
+            if m_val == target:
                 return m
 
-            if nums[m] >= nums[l]:
+            if m_val >= nums[l]:
                 # The mid val is in the higher half of the array.
                 # Next we need to decide if the target is in the higher half of the array. It could either be to
                 # right of mid before the pivot (target > nums[m]) or to left of the left pointer. In either case,
@@ -75,8 +75,8 @@ class Solution:
                     r = m - 1
                 else:
                     l = m + 1
-
         return -1
+
 
 result = Solution()
 print(result.search([4,5,6,7,0,1,2], 0))    # 4
