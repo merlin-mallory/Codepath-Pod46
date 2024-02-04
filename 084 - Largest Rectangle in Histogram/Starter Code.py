@@ -29,3 +29,4 @@ class Solution:
 result = Solution()
 print(result.largestRectangleArea([2,1,5,6,2,3]))   # 10
 print(result.largestRectangleArea([2,4]))           # 4
+print(result.largestRectangleArea([2,1,2]))         # 3
