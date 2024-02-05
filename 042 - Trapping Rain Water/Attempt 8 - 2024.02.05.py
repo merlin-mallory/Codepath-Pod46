@@ -24,35 +24,35 @@ class Solution:
 
         Plan:
         Two Pointers
-        1. Init vol = 0, l = 0, r = len(height), max_l = height[l], max_r = height[r]
-        2. Loop while l < r.
-            3. If height[l] <= height[r]
-                4. l++
-                5. If height[l] <= max_l, then vol += max_l - height[l]
-                6. Otherwise, max_l = height[l]
-            7. Do the same for r.
-        8. Return vol.
+        Init vol = 0, l = 0, r = len(height)-1, max_l = 0, max_r = 0.
+        Loop while l < r.
+            Check if height[l] <= height[r]. If so, then we'll advance the left pointer, because we know there will
+            be a right bound that will contain the water. So the first thing we do is check if height[i] > max_l,
+            and if so, just update max_l. We don't need to add any water in this case. Otherwise, if height[i] <=
+            max_l, then we should add that index's water to vol. In either case, advance l += 1
+            Do the same thing for the r pointer.
+        Return vol.
         """
         vol = 0
-        l = 0
-        r = len(height)-1
+        l, r = 0, len(height)-1
         max_l = height[l]
         max_r = height[r]
 
         while l < r:
             if height[l] <= height[r]:
+                # Advance left pointer
                 if height[l] < max_l:
                     vol += max_l - height[l]
                 else:
                     max_l = height[l]
                 l += 1
             else:
+                # Advance right pointer
                 if height[r] < max_r:
                     vol += max_r - height[r]
                 else:
                     max_r = height[r]
                 r -= 1
-
         return vol
 
 
