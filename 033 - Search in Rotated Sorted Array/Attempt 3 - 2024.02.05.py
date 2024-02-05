@@ -39,43 +39,37 @@ class Solution:
         -10^4 <= target <= 10^4
 
         Plan:
-        Binary Search
-        1. l = 0, r = len(nums)-1.
-        2. Loop while l <= r.
-            3. m = (l+r) // 2
-            4. m_val = nums[m]
-            5. If m_val == target, then return m.
-            6. Else if m_val > target, then the target should be to the right, so l = m +1
-            7. Otherwise r = m - 1
-        8. Return -1
+        Binary Search.
+        Init l = 0, r = len(nums)-1.
+        Loop while l <= r. (check equal)
+            Calculate m = (l+r) // 2.
+            Get cur_val = nums[m]
+            Check if cur_val == target, and if so, return m.
+            Check if cur_val is in the higher half of the array by seeing if cur_val > nums[r]. If it is,
+            then determine if the target is to the right, which will be either target >= cur_val , or target < nums[m].
+            (search right with l = m+1). Otherwise we should search left with r = m-1.
+            Do the same for the opposite scenario.
+        return - 1
         '''
         l, r = 0, len(nums)-1
         while l <= r:
-            m = (l+r)//2
-            m_val = nums[m]
-            if m_val == target:
+            m = (l+r) // 2
+            cur_val = nums[m]
+            if cur_val == target:
                 return m
 
-            if m_val >= nums[l]:
-                # The mid val is in the higher half of the array.
-                # Next we need to decide if the target is in the higher half of the array. It could either be to
-                # right of mid before the pivot (target > nums[m]) or to left of the left pointer. In either case,
-                # we want to search to the right, so set l = m + 1. Otherwise, we will search to the left with r = m -1.
-                if target > nums[m] or target < nums[l]:
+            if cur_val >= nums[0]:
+                if target > cur_val or target < nums[0]:
                     l = m + 1
                 else:
                     r = m - 1
             else:
-                # The mid val is in the lower half of the array.
-                # Next we need to decide if the target is in the lower half of the array. It could either be to the
-                # left of mid before the pivot (target < nums[m]) or right of the right pointer. In either case,
-                # we want to search to the left, so set r = m - 1. Otherwise, we will search to the right with r = m
-                # + 1.
-                if target < nums[m] or target > nums[r]:
+                if target < cur_val or target > nums[-1]:
                     r = m - 1
                 else:
                     l = m + 1
         return -1
+
 
 
 result = Solution()

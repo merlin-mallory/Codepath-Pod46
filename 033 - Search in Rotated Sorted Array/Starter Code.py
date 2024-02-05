@@ -44,3 +44,4 @@ result = Solution()
 print(result.search([4,5,6,7,0,1,2], 0))    # 4
 print(result.search([4,5,6,7,0,1,2], 3))    # -1
 print(result.search([1], 0))                # -1
+print(result.search([3,5,1], 3))            # 0
