@@ -25,6 +25,34 @@ class Solution:
         1 <= m + n <= 2000
         -10^6 <= nums1[i], nums2[i] <= 10^6
         '''
+        A, B = nums1, nums2
+        total_len = len(nums1) + len(nums2)
+        half_len = total_len // 2
+
+        if len(B) < len(A):
+            A, B = B, A
+
+        l, r = 0, len(A)-1
+        while True:
+            m = (l + r) // 2        # A
+            n = half_len - m - 2    # B
+
+            Aleft = A[m] if m >= 0 else float('-inf')
+            Aright = A[m + 1] if (m + 1) < len(A) else float('inf')
+            Bleft = B[n] if n >= 0 else float('-inf')
+            Bright = B[n + 1] if (n+1) < len(B) else float('inf')
+
+            if Aleft <= Bright and Bleft <= Aright:
+                # odd
+                if total_len % 2 == 1:
+                    return min(Aright, Bright)
+                # even
+                else:
+                    return (max(Aleft, Bleft) + min(Aright, Bright)) / 2
+            elif Aleft > Bright:
+                r = m - 1
+            else:
+                l = m + 1
 
 result = Solution()
 print(result.findMedianSortedArrays([1,3], [2]))        # 2.00000
