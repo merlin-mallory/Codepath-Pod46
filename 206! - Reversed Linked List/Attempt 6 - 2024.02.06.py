@@ -49,6 +49,23 @@ class Solution:
         The number of nodes in the list is the range [0, 5000].
         -5000 <= Node.val <= 5000
         """
+        prev = None
+        cur = head
+        while cur:
+            temp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = temp
+        return prev
+
+
+# prev = None
+# cur = 1, cur.next = 2
+# temp = 2, temp.next = 3
+# cur.next = None, cur = 1
+# prev = 1, prev.next = 2
+# cur = 2, cur.next = None
+
 
 solution = Solution()
 list_head = create_list([1,2,3,4,5])
