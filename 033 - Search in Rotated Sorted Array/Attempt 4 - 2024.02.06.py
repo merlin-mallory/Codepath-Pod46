@@ -37,7 +37,36 @@ class Solution:
         All values of nums are unique.
         nums is an ascending array that is possibly rotated.
         -10^4 <= target <= 10^4
+
+        Plan:
+        Binary Search
+        Locate if mid is in either the left sorted subarray or right sorted subarray. Then compare nums[mid] with the
+        search value, and adjust pointers appropriately. If mid reaches target, return mid. Otherwise if the binary
+        search completes and we haven't found the target, then return -1.
+        Time: O(log(n)
+        Space: O(1)
+        Edge: None
         '''
+        l, r = 0, len(nums)-1
+        while l <= r:
+            m = (l+r) // 2
+            cur = nums[m]
+            if cur == target:
+                return m
+
+            if cur >= nums[0]:
+                # Mid is in the left subarray
+                if target > cur or target < nums[0]:
+                    l = m + 1
+                else:
+                    r = m - 1
+            else:
+                # Mid is in the right subarray
+                if target < cur or target > nums[-1]:
+                    r = m - 1
+                else:
+                    l = m + 1
+        return -1
 
 
 result = Solution()
