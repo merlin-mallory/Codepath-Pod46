@@ -29,7 +29,25 @@ class Solution:
         1 <= piles.length <= 10^4
         piles.length <= h <= 10^9
         1 <= piles[i] <= 10^9
+
+        Plan:
+        Binary Search
+        Time: O(n log(n))
         '''
+        import math
+        min_k = max(piles)
+        l, r = 1, max(piles)
+        while l < r:
+            m = (l + r) // 2
+            time_to_finish = 0
+            for pile in piles:
+                time_to_finish += math.ceil(pile / m)
+            if time_to_finish <= h:
+                min_k = min(min_k, m)
+                r = m
+            else:
+                l = m + 1
+        return min_k
 
 result = Solution()
 print(result.minEatingSpeed([3,6,7,11], 8))         # 4
@@ -46,3 +64,4 @@ print(result.minEatingSpeed([873375536,395271806,617254718,970525912,634754347,8
                              126489328,738983100,793184186,871576545,768870427,955396670,328003949,786890382,450361695,
                              994581348,158169007,309034664,388541713,142633427,390169457,161995664,906356894,379954831,
                              448138536],943223529))        # 46
+
