@@ -26,35 +26,31 @@ class Solution:
         -10^6 <= nums1[i], nums2[i] <= 10^6
         '''
         A, B = nums1, nums2
-        total_len = len(nums1) + len(nums2)
+        total_len = len(A) + len(B)
         half_len = total_len // 2
 
         if len(B) < len(A):
-            A, B = B, A         # We want to binary search the shorter list. If B is shorter than A, we'll flip,
-                                # so A will always be the shorter subarray that we'll be binary searching.
+            A, B = B, A
 
-        l, r = 0, len(A)-1      # Binary Search through A
+        # A is the smaller size array, B is the larger size array.
+        # Binary search the smaller array to find the median.
+
+        l, r = 0, len(A)-1
         while True:
-            # m is the mid index of the smaller subarray (A).
-            m = (l + r) // 2
-            # n is the mid index of the larger subarray (B). It flexes based upon the size of the m. So when m
-            # becomes small, n needs to grow larger in size, or vice versua. The -2 is needed because both n and m
-            # are zero-indexed. In order to preserve total len
+            m = (l+r)//2
             n = half_len - m - 2
 
-            Aleft = A[m] if m >= 0 else float('-inf')
-            Aright = A[m + 1] if (m + 1) < len(A) else float('inf')
-            Bleft = B[n] if n >= 0 else float('-inf')
-            Bright = B[n + 1] if (n+1) < len(B) else float('inf')
+            leftA = A[m] if m >= 0 else float('-inf')
+            rightA = A[m+1] if m+1 < len(A) else float('inf')
+            leftB = B[n] if n >= 0 else float('-inf')
+            rightB = B[n+1] if n+1 < len(B) else float('inf')
 
-            if (Aleft <= Bright) and (Bleft <= Aright):
-                # odd
+            if (leftA <= rightB) and (leftB <= rightB):
                 if total_len % 2 == 1:
-                    return min(Aright, Bright)
-                # even
+                    return min(rightA, rightB)
                 else:
-                    return (max(Aleft, Bleft) + min(Aright, Bright)) / 2
-            elif Aleft > Bright:
+                    return (max(leftA, leftB) + min(leftA, leftB)) / 2
+            elif (leftA > rightB):
                 r = m - 1
             else:
                 l = m + 1
