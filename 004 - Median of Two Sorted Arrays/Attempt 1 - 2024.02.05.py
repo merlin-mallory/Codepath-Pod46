@@ -30,12 +30,17 @@ class Solution:
         half_len = total_len // 2
 
         if len(B) < len(A):
-            A, B = B, A
+            A, B = B, A         # We want to binary search the shorter list. If B is shorter than A, we'll flip,
+                                # so A will always be the shorter subarray that we'll be binary searching.
 
-        l, r = 0, len(A)-1
+        l, r = 0, len(A)-1      # Binary Search through A
         while True:
-            m = (l + r) // 2        # A
-            n = half_len - m - 2    # B
+            # m is the mid index of the smaller subarray (A).
+            m = (l + r) // 2
+            # n is the mid index of the larger subarray (B). It flexes based upon the size of the m. So when m
+            # becomes small, n needs to grow larger in size, or vice versua. The -2 is needed because both n and m
+            # are zero-indexed. In order to preserve total len
+            n = half_len - m - 2
 
             Aleft = A[m] if m >= 0 else float('-inf')
             Aright = A[m + 1] if (m + 1) < len(A) else float('inf')
