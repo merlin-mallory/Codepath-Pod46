@@ -1,8 +1,33 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+from typing import Optional, List
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def create_list(elements: List[int]) -> Optional[ListNode]:
+    """
+    Convert an array of elements into a linked list and return the head of the list.
+    """
+    head = None
+    current = None
+    for element in elements:
+        if not head:
+            head = ListNode(element)
+            current = head
+        else:
+            current.next = ListNode(element)
+            current = current.next
+    return head
+
+def print_list(head: Optional[ListNode]) -> None:
+    """
+    Print the elements of a linked list.
+    """
+    current = head
+    while current:
+        print(current.val, end=" ")
+        current = current.next
+    print()
 
 class Solution:
     def hasCycle(self, head: ListNode) -> bool:
@@ -33,4 +58,20 @@ class Solution:
         -10^5 <= Node.val <= 10^5
         pos is -1 or a valid index in the linked-list.
         '''
+        if not head:
+            return False
+        if not head.next:
+            return False
+        slow = head
+        fast = head.next
+        while fast and fast.next:
+            if fast == slow:
+                return True
+            slow = slow.next
+            fast = fast.next.next
+        return False
 
+solution = Solution()
+list_head = create_list([3,2,0,-4])
+new_list_head = solution.hasCycle(list_head)
+print(new_list_head)  # Expected: True
