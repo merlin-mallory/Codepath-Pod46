@@ -57,9 +57,21 @@ class Solution:
         The number of the nodes in the list is in the range [0, 10^4].
         -10^5 <= Node.val <= 10^5
         pos is -1 or a valid index in the linked-list.
-        '''
 
-solution = Solution()
-list_head = create_list([3,2,0,-4])
-new_list_head = solution.hasCycle(list_head)
-print(new_list_head)  # Expected: True
+        Plan:
+        Linked List
+        Slow/fast pointer match, return False.
+        Otherwise return True.
+        Time: O(n)
+        Space: O(1)
+        Edge: Possible for there to be 0 and 1 nodes.
+        '''
+        slow = head
+        fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if fast == slow:
+                return True
+
+        return False
