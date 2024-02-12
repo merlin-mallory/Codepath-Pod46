@@ -57,5 +57,22 @@ class Solution:
         The number of the nodes in the list is in the range [0, 10^4].
         -10^5 <= Node.val <= 10^5
         pos is -1 or a valid index in the linked-list.
-        '''
 
+        Plan:
+        Slow/fast pointers. If the fast reaches Null, return False. Otherwise, if slow = fast, then return True
+        Time: O(n)
+        Space: O(1)
+        Edge: Possible to be no nodes.
+        '''
+        if not head:
+            return False
+        if not head.next:
+            return False
+        slow = head
+        fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
