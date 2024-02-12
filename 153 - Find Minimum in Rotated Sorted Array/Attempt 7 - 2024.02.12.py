@@ -35,8 +35,31 @@ class Solution:
         All the integers of nums are unique.
         nums is sorted and rotated between 1 and n times.
 
-
+        Plan:
+        Binary Search
+        l, r = 0, len(nums)-1.
+        Loop while l <= r.
+            Grab the mid_i and mid_v. Update min_v.
+            Check if mid_v is in either the left or right sorted segment, and shift pointers appropriately.
+        Return mid_v.
         """
+        min_v = nums[-1]
+        l, r = 0, len(nums)-1
+        while l <= r:
+            if nums[l] <= nums[r]:
+                min_v = min(min_v, nums[l])
+                # break
+            m = (l+r)//2
+            m_val = nums[m]
+            min_v = min(min_v, m_val)
+            if m_val >= nums[0]:
+                # Mid is in the left segment
+                l = m + 1
+            else:
+                r = m - 1
+        return min_v
+
+
 
 
 result = Solution()
