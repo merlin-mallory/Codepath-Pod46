@@ -37,53 +37,81 @@ class Solution:
         is None.
         4. Return dummy.next
         """
-        # Failed attempt. Below is a O(n) time O(n/k) space solution.
-        count = 0
-        current = head
+        dummy = ListNode(0, head)
+        left_seg = dummy
 
-        # First, see if there are atleast k nodes
-        # left in the linked list.
-        while count < k and current:
-            current = current.next
-            count += 1
+        def getKth(cur, k):
+            while cur and k > 0:
+                cur = cur.next
+                k -= 1
+            return cur
 
-        # If we have k nodes, then we reverse them
-        if count == k:
-            # Reverse the first k nodes of the list and
-            # get the reversed list's head.
-            reversedHead = self.reverseLinkedList(head, k)
+        while True:
+            mid_seg = getKth(left_seg, k)
+            if not mid_seg:
+                break
+            right_seg = mid_seg.next
 
-            # Now recurse on the remaining linked list. Since
-            # our recursion returns the head of the overall processed
-            # list, we use that and the "original" head of the "k" nodes
-            # to re-wire the connections.
-            head.next = self.reverseKGroup(current, k)
-            return reversedHead
-        return head
+            # reverse group
+            prev, cur = mid_seg.next, left_seg.next
+            while cur != right_seg:
+                temp = cur.next
+                cur.next = prev
+                prev = cur
+                cur = temp
 
-    def reverseLinkedList(self, head, k):
-        # Reverse k nodes of the given linked list.
-        # This function assumes that the list contains
-        # atleast k nodes.
-        previous, current = None, head
-        while k:
-            # Keep track of the next node to process in the
-            # original list
-            temp = current.next
+            temp = left_seg.next
+            left_seg.next = mid_seg
+            left_seg = temp
+        return dummy.next
 
-            # Insert the node pointed to by "ptr"
-            # at the beginning of the reversed list
-            current.next = previous
-            previous = current
-
-            # Move on to the next node
-            current = temp
-
-            # Decrement the count of nodes to be reversed by 1
-            k -= 1
-
-        # Return the head of the reversed list
-        return previous
+    #     # Below is a O(n) time O(n/k) space solution.
+    #     count = 0
+    #     current = head
+    #
+    #     # First, see if there are atleast k nodes
+    #     # left in the linked list.
+    #     while count < k and current:
+    #         current = current.next
+    #         count += 1
+    #
+    #     # If we have k nodes, then we reverse them
+    #     if count == k:
+    #         # Reverse the first k nodes of the list and
+    #         # get the reversed list's head.
+    #         reversedHead = self.reverseLinkedList(head, k)
+    #
+    #         # Now recurse on the remaining linked list. Since
+    #         # our recursion returns the head of the overall processed
+    #         # list, we use that and the "original" head of the "k" nodes
+    #         # to re-wire the connections.
+    #         head.next = self.reverseKGroup(current, k)
+    #         return reversedHead
+    #     return head
+    #
+    # def reverseLinkedList(self, head, k):
+    #     # Reverse k nodes of the given linked list.
+    #     # This function assumes that the list contains
+    #     # atleast k nodes.
+    #     previous, current = None, head
+    #     while k:
+    #         # Keep track of the next node to process in the
+    #         # original list
+    #         temp = current.next
+    #
+    #         # Insert the node pointed to by "ptr"
+    #         # at the beginning of the reversed list
+    #         current.next = previous
+    #         previous = current
+    #
+    #         # Move on to the next node
+    #         current = temp
+    #
+    #         # Decrement the count of nodes to be reversed by 1
+    #         k -= 1
+    #
+    #     # Return the head of the reversed list
+    #     return previous
 
         # def is_reversible(current, k):
         #     for i in range(k-1):
