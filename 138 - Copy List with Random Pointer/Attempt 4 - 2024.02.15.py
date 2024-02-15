@@ -3,10 +3,6 @@ from typing import Optional
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         '''
-        138 - Copy List with Random Pointer
-
-        https://leetcode.com/problems/copy-list-with-random-pointer/
-
         A linked list of length n is given such that each node contains an additional random pointer, which could
         point to any node in the list, or null.
 
@@ -46,5 +42,27 @@ class Solution:
         0 <= n <= 1000
         -10^4 <= Node.val <= 10^4
         Node.random is null or is pointing to some node in the linked list.
+
+        Plan:
+        Create old_to_copy dict.
+        Loop through head and create new nodes within the old_to_copy dict, with the same .values.
+        Loop through old_to_copy dict, and set the .next and .random values using the old_to_copy dict
+        connections. Also make sure to handle Null pointers.
+        Return old_to_copy[head].
+        Time: O(n)
+        Space: O(n)
+        Edge: Can be zero nodes in head.
         '''
+        old_to_copy = { None: None }
+        cur = head
+        while cur:
+            old_to_copy[cur] = ListNode(cur.val)
+            cur = cur.next
+        cur = head
+        while cur:
+            this_node = old_to_copy[cur]
+            this_node.next = old_to_copy[cur.next]
+            this_node.random = old_to_copy[cur.random]
+            cur = cur.next
+        return old_to_copy[head]
 
