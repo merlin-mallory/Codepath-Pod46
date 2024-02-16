@@ -29,3 +29,11 @@ class Solution:
         The number of nodes in the tree is in the range [0, 5000].
         -10^4 <= Node.val <= 10^4
         '''
+        def dfs(root):
+            if not root: return [True, 0]
+            l_height = dfs(root.left)
+            r_height = dfs(root.right)
+            balanced = l_height[0] and r_height[0] and (abs(l_height[1] - r_height[1]) <= 1)
+            return [balanced, 1 + max(l_height[1], r_height[1])]
+
+        return dfs(root)[0]
