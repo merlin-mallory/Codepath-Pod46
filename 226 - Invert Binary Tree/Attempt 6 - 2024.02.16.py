@@ -27,4 +27,15 @@ class Solution:
         The number of nodes in the tree is in the range [0, 100].
         -100 <= Node.val <= 100
         '''
+        if not root:
+            return None
+
+        root.left = self.invertTree(root.left)
+        root.right = self.invertTree(root.right)
+
+        temp = root.right
+        root.right = root.left
+        root.left = temp
+
+        return root
 
