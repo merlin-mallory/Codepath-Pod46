@@ -21,8 +21,26 @@ class Solution:
         Constraints:
         1 <= temperatures.length <= 10^5
         30 <= temperatures[i] <= 100
-        '''
 
+        Plan:
+        Stack
+        Create answer array, init to zeros.
+        Loop through temperatures.
+            Loop while stack and cur > stack[-1][1].
+                Pop the stack
+                Calculate wait
+                Set answer[stack_i] = wait
+            Append [i, temperatures[i] to the stack
+        '''
+        answer = [0] * len(temperatures)
+        stack = []
+        for i in range(len(temperatures)):
+            while stack and temperatures[i] > stack[-1][1]:
+                stack_i, stack_v = stack.pop()
+                wait = i - stack_i
+                answer[stack_i] = wait
+            stack.append([i, temperatures[i]])
+        return answer
 
 result = Solution()
 print(result.dailyTemperatures([73,74,75,71,69,72,76,73]))  # [1,1,4,2,1,1,0,0]
