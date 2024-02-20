@@ -26,6 +26,7 @@ class Solution:
 
         Plan:
         Stack
+        (Can do by appending just indexes to stack, and referencing for checks)
         '''
         max_area = 0
         stack = []
