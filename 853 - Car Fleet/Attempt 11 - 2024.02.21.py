@@ -67,7 +67,7 @@ class Solution:
         # <, then the -1 car will form a fleet with the -2 car, so pop the stack
         for car in cars:
             stack.append(car)
-            if (len(stack) > 1) and (stack[-1][1] < stack[-2][1]):
+            if (len(stack) > 1) and (stack[-1][1] <= stack[-2][1]):
                 stack.pop()
         return len(stack)
 
