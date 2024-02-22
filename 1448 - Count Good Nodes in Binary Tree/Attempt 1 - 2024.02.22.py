@@ -38,5 +38,20 @@ class Solution:
         Constraints:
         The number of nodes in the binary tree is in the range [1, 10^5].
         Each node's value is between [-10^4, 10^4].
+
+        Plan:
+        Binary Tree DFS
+        Set cur = root, final_arr = [].
+        init_parent = ListNode(-1, float('-inf'))
+        root.parent = init_parent
+
+        dfs1(node, parent)
+            if root.left: root.left.parent = node, recurse left
+            if root.right: root.right.parent = node, recurse right
+        dfs2(node)
+            if cur.val > cur.parent: append cur.val to final_arr.
+        Call dfs1(root, initParent)
+        Call dfs2
+        Return final_arr
         '''
 
