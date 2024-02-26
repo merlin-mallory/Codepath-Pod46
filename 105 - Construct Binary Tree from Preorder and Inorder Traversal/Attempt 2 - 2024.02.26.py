@@ -30,33 +30,25 @@ class Solution:
         Each value of inorder also appears in preorder.
         preorder is guaranteed to be the preorder traversal of the tree.
         inorder is guaranteed to be the inorder traversal of the tree.
+
+        Root of the tree will be at preorder[0]. If we find i=the index of that value in inorder, that will show us
+        where the divide is between the two trees. Everything to the left will be under node.left, everything to the
+        right will be under node.right. So set node.left = dfs(preorder[1:mid+1, inorder?
         '''
-        if not preorder or not inorder:
-            return None
+        if not preorder or not inorder: return None
+        import collections
+        inorder_dict = collections.defaultdict(int)
+        for i, val in enumerate(inorder):
+            inorder_dict[val] = i
 
-        root = TreeNode(preorder[0])
-        mid = inorder.index(preorder[0])
-        root.left = self.buildTree(preorder[1:mid+1], inorder[:mid])
-        root.right = self.buildTree(preorder[mid + 1:], inorder[mid + 1:])
+        def dfs(l, r):
+            if l > r:
+                return
+            root = TreeNode(preorder.pop(0))
+            mid = inorder_dict[root.val]
+            root.left = dfs(l, mid - 1)
+            root.right = dfs(mid + 1, r)
+            return root
+
+        root = dfs(0, len(inorder)-1)
         return root
-
-    # The above solution is O(n^2) time and O(n) space. Below is an O(n) time (amortized) and O(h) space solution.
-    # class Solution:
-    #     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-    #         if not preorder or not inorder:
-    #             return None
-    #         inorderMap = {}
-    #         for i in range(len(inorder)):
-    #             inorderMap[inorder[i]] = i
-    #
-    #         def helper(l, r):
-    #             if l > r:
-    #                 return None
-    #             root = TreeNode(preorder.pop(0))
-    #             mid = inorderMap[root.val]
-    #             root.left = helper(l, mid - 1)
-    #             root.right = helper(mid + 1, r)
-    #             return root
-    #
-    #         root = helper(0, len(inorder) - 1)
-    #         return root
