@@ -26,8 +26,4 @@ class Solution:
         Constraints:
         The number of nodes in both trees is in the range [0, 100].
         -10^4 <= Node.val <= 10^4
-
-        Plan:
-        We need to verify that the height of each node is identical, and also that the values at each node are
-        identical.
         '''
