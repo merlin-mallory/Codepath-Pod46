@@ -1,3 +1,7 @@
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_end = False
 class WordDictionary:
     '''
     211 - Design Add and Search Words Data Structure
@@ -35,16 +39,41 @@ class WordDictionary:
     word in addWord consists of lowercase English letters.
     word in search consist of '.' or lowercase English letters.
     There will be at most 2 dots in word for search queries.
-    At most 10^4 calls will be made to addWord and search.
+    At most 104 calls will be made to addWord and search.
+
+    Plan:
+    Trie
+    Create TrieNode Class.
+    Init: Create self.root within WordDictionary.
+    addWord: Insert trie, as normal
+    search: Special
     '''
     def __init__(self):
-        self.none = None
+        self.root = TrieNode()
 
     def addWord(self, word: str) -> None:
+        cur = self.root
+        for char in word:
+            if char not in cur.children:
+                cur.children[char] = TrieNode()
+            cur = cur.children[char]
+        cur.is_end = True
         return None
 
     def search(self, word: str) -> bool:
-        return False
+        def dfs(j, root):
+            cur = root
+            for i in range(j, len(word)):
+                char = word[i]
+                if char == ".":
+                    for child in cur.children.values():
+                        if dfs(i + 1, child): return True
+                    return False
+                else:
+                    if char not in cur.children: return False
+                    cur = cur.children[char]
+            return cur.is_end
+        return dfs(0, self.root)
 
 # Your WordDictionary object will be instantiated and called as such:
 # obj = WordDictionary()
