@@ -33,6 +33,9 @@ class Codec:
     Constraints:
     The number of nodes in the tree is in the range [0, 10^4].
     -1000 <= Node.val <= 1000
+
+    Plan:
+    For serialize, create str_arr, do DFS preorder traversal to construct the string, subbing in "N" for nulls.
     '''
 
     def serialize(self, root):
@@ -41,6 +44,16 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
+        encoded_str = []
+        def dfs(node):
+            if not node:
+                encoded_str.append("N")
+                return None
+            encoded_str.append(str(node.val))
+            dfs(node.left)
+            dfs(node.right)
+        dfs(root)
+        return ','.join(encoded_str)
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
@@ -48,6 +61,21 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
+        arr = data.split(',')
+        self.i = 0
+        def dfs():
+            if arr[self.i] == "N":
+                self.i += 1
+                return None
+            node = TreeNode(int(arr[self.i]))
+            self.i += 1
+            node.left = dfs()
+            node.right = dfs()
+            return node
+        return dfs()
+
+
+
 
 
 # Your Codec object will be instantiated and called as such:
