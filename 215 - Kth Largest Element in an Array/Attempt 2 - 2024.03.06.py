@@ -22,5 +22,20 @@ class Solution:
         Constraints:
         1 <= k <= nums.length <= 10^5
         -10^4 <= nums[i] <= 10^4
+
+        Plan:
+        Heap.
+        Heapify nums.
+        Loop in range(len(heap) - k).
+            Heappop and discard
+        Return nums[0]
+        Time: O(n log n)
+        Space: O(n)
+        Edge: None
         '''
+        import heapq
+        heapq.heapify(nums)
+        for _ in range(len(nums) - k):
+            heapq.heappop(nums)
+        return nums[0]
 
