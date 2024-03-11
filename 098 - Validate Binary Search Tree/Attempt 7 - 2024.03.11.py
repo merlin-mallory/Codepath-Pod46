@@ -48,4 +48,3 @@ class Solution:
             right_bool = dfs(node.right, node.val, cur_max)
             return (left_bool and right_bool)
         return dfs(root, float('-inf'), float('inf'))
-
