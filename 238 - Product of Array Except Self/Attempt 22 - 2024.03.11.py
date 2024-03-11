@@ -36,7 +36,7 @@ class Solution:
             prefix *= nums[i-1]
             final_arr[i] = prefix
         prefix = 1
-        for i in range(len(nums)-1, -1, -1):
+        for i in range(len(nums)-2, -1, -1):
             prefix *= nums[i+1]
             final_arr[i] *= prefix
         return final_arr
