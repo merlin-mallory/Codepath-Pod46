@@ -39,6 +39,23 @@ class Solution:
         1 <= tasks.length <= 10^4
         tasks[i] is an uppercase English letter.
         0 <= n <= 100
+
+        Plan:
+        Maxheap and Queue.
+        Create tasks_dict. Keys: Unique chars in tasks, Values: Count of keys.
+        Create maxheap and deque.
+        Negify tasks_dict.values()
+        Heapify tasks_dict.values().
+        Set time = 0
+        Loop while maxheap or cd_deque.
+            time += 1
+            if maxheap:
+                new_count = 1 + heapq.heappop(maxheap)
+                if new_count != 0:
+                    deque.append([new_count, time+n])
+            if cd_deque and cd_deque[0][1] == time:
+                heapq.heappush(maxheap, cd_deque.popleft()[0])
+        return time
         '''
         import collections, heapq
         count = collections.Counter(tasks)
