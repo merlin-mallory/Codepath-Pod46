@@ -59,21 +59,21 @@ class Twitter:
         '''
         import heapq
         final_arr = []
-        min_heap = []
+        max_heap = []
 
         self.user_to_followee_set[userId].add(userId)
         for followeeId in self.user_to_followee_set[userId]:
             if followeeId in self.user_to_tweets_list:
                 index = len(self.user_to_tweets_list[followeeId]) - 1
                 count, tweet_id = self.user_to_tweets_list[followeeId][index]
-                heapq.heappush(min_heap, [count, tweet_id, followeeId, index - 1])
+                heapq.heappush(max_heap, [count, tweet_id, followeeId, index - 1])
 
-        while min_heap and len(final_arr) < 10:
-            count, tweet_id, followeeId, index = heapq.heappop(min_heap)
+        while max_heap and len(final_arr) < 10:
+            count, tweet_id, followeeId, index = heapq.heappop(max_heap)
             final_arr.append(tweet_id)
             if index >= 0:
                 count, tweet_id = self.user_to_tweets_list[followeeId][index]
-                heapq.heappush(min_heap, [count, tweet_id, followeeId, index - 1])
+                heapq.heappush(max_heap, [count, tweet_id, followeeId, index - 1])
         return final_arr
 
     def follow(self, followerId: int, followeeId: int) -> None:
