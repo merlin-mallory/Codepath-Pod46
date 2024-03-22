@@ -40,6 +40,15 @@ class MedianFinder:
     If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
     '''
 
+    def __init__(self):
+        ''''''
+
+    def addNum(self, num: int) -> None:
+        ''''''
+
+    def findMedian(self) -> float:
+        ''''''
+
 # Your MedianFinder object will be instantiated and called as such:
 # obj = MedianFinder()
 # obj.addNum(num)
