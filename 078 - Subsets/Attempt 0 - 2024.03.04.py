@@ -1,3 +1,4 @@
+from typing import List
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         '''
@@ -27,6 +28,16 @@ class Solution:
 
         Base Case 1: If l >= len(nums), then
         '''
+        n = len(nums)
+        final_arr = []
+        def backtrack(start, cur_list):
+            final_arr.append(cur_list[:])
+            for j in range(start, n):
+                cur_list.append(nums[j])
+                backtrack(j+1, cur_list)
+                cur_list.pop()
+        backtrack(0, [])
+        return final_arr
 
 
 
