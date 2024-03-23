@@ -28,18 +28,31 @@ class Solution:
 
         Base Case 1: If l >= len(nums), then
         '''
-        n = len(nums)
         final_arr = []
-        def backtrack(start, cur_list):
-            final_arr.append(cur_list[:])
-            for j in range(start, n):
-                cur_list.append(nums[j])
-                backtrack(j+1, cur_list)
-                cur_list.pop()
-        backtrack(0, [])
+        cur_arr = []
+        def backtrack(i):
+            if i >= len(nums):
+                final_arr.append(cur_arr[:])
+                return
+            # Decide to include nums[i]
+            cur_arr.append(nums[i])
+            backtrack(i+1)
+            # Decide to not include nums[i]
+            cur_arr.pop()
+            backtrack(i+1)
+        backtrack(0)
         return final_arr
 
-
+        # n = len(nums)
+        # final_arr = []
+        # def backtrack(start, cur_list):
+        #     final_arr.append(cur_list[:])
+        #     for j in range(start, n):
+        #         cur_list.append(nums[j])
+        #         backtrack(j+1, cur_list)
+        #         cur_list.pop()
+        # backtrack(0, [])
+        # return final_arr
 
 result = Solution()
 print(result.subsets([1, 2, 3]))  # [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
