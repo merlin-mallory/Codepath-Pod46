@@ -29,7 +29,39 @@ class Solution:
         Constraints:
         3 <= nums.length <= 3000
         -10^5 <= nums[i] <= 10^5
+
+        Plan:
+        Two Pointers
+        Sort nums
+        Outer loop through nums
+            Handle duplicates, grab left_val
+            Inner loop through nums
+                Solve twoSum for remaining two values, when three_sum == target, append to final_arr, l++,
+                handle duplicates.
+        return final_arr
+        Time: O(n^2)
+        Space: O(1)
+        Edge: None
         """
+        final_arr = []
+        nums.sort()
+        i = 0
+        while i < len(nums):
+            while (i > 0) and (i < len(nums)-1) and (nums[i] == nums[i-1]):
+                i += 1
+            left_val = nums[i]
+            l, r = i + 1, len(nums)-1
+            while l < r:
+                three_sum = left_val + nums[l] + nums[r]
+                if three_sum > 0: r -= 1
+                elif three_sum < 0: l += 1
+                else:
+                    final_arr.append([left_val, nums[l], nums[r]])
+                    l += 1
+                    while (l < r) and (nums[l] == nums[l-1]):
+                        l += 1
+            i += 1
+        return final_arr
 
 result = Solution()
 print(result.threeSum([-1,0,1,2,-1,-4]))    # [[-1,-1,2],[-1,0,1]]
