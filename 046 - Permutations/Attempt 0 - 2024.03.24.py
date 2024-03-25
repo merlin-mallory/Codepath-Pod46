@@ -26,6 +26,18 @@ class Solution:
         -10 <= nums[i] <= 10
         All the integers of nums are unique.
         '''
+        final_arr = []
+        def backtrack(permutation):
+            if len(permutation) == len(nums):
+                final_arr.append(permutation.copy())
+                return
+            for num in nums:
+                if num not in permutation:
+                    permutation.append(num)
+                    backtrack(permutation)
+                    permutation.pop()
+        backtrack([])
+        return final_arr
 
 result = Solution()
 print(result.permute([1,2,3]))  # [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
