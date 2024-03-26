@@ -1,4 +1,8 @@
 from typing import List
+class TrieNode():
+    def __init__(self):
+        self.children = {}
+        self.is_end = False
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         '''
@@ -30,6 +34,49 @@ class Solution:
         words[i] consists of lowercase English letters.
         All the strings of words are unique.
         '''
+        root = TrieNode()
+        def addWord(word):
+            cur = root
+            for c in word:
+                if c not in cur.children:
+                    cur.children[c] = TrieNode()
+                cur = cur.children[c]
+            cur.is_end = True
+
+        for w in words:
+            addWord(w)
+
+        rows = len(board)
+        cols = len(board[0])
+        final_arr = set()
+        visited_set = set()
+
+        def backtrack(r, c, node, word):
+            if (
+                r < 0 or c < 0 or r >= rows or c >= cols or
+                (r, c) in visited_set or
+                board[r][c] not in node.children
+            ):
+                return
+
+            visited_set.add((r,c))
+            node = node.children[board[r][c]]
+            word += board[r][c]
+
+            if node.is_end: final_arr.add(word)
+
+            backtrack(r-1, c, node, word)
+            backtrack(r+1, c, node, word)
+            backtrack(r, c-1, node, word)
+            backtrack(r, c+1, node, word)
+            visited_set.remove((r,c))
+
+        for r in range(rows):
+            for c in range(cols):
+                backtrack(r, c, root, "")
+
+        return list(final_arr)
+
 
 solution = Solution()
 print(solution.findWords([["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]],
