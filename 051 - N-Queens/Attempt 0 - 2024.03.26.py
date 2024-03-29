@@ -1,3 +1,4 @@
+from typing import List
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         '''
@@ -57,3 +58,7 @@ class Solution:
                 board[r][c] = "."
         backtrack(0)
         return final_arr
+
+result = Solution()
+print(result.solveNQueens(4))   # [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+print(result.solveNQueens(1))   # [["Q"]]
