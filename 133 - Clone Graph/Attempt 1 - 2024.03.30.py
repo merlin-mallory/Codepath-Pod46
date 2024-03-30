@@ -30,8 +30,6 @@ def graphToAdjList(node: Optional['Node']) -> List[List[int]]:
                     queue.append(neighbor)
     # Convert the dictionary to a list of lists sorted by node value
     return [nodes[i] for i in sorted(nodes)]
-
-from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         '''
@@ -89,6 +87,21 @@ class Solution:
         There are no repeated edges and no self-loops in the graph.
         The Graph is connected and all nodes can be visited starting from the given node.
         '''
+        if node is None: return None
+        import collections
+        old_to_new = {}
+        deque = collections.deque([node])
+        while deque:
+            cur = deque.popleft()
+            old_to_new[cur] = Node(cur.val)
+            for child in cur.neighbors:
+                if child not in old_to_new:
+                    deque.append(child)
+
+        for old_node, new_node in old_to_new.items():
+            for old_neighbor in old_node.neighbors:
+                new_node.neighbors.append(old_to_new[old_neighbor])
+        return old_to_new[node]
 
 solution = Solution()
 
