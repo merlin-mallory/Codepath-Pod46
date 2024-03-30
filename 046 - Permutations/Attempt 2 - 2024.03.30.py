@@ -26,21 +26,24 @@ class Solution:
         -10 <= nums[i] <= 10
         All the integers of nums are unique.
 
+        Plan:
+        Backtracking
         Time: O(n * n!)
-        Space: O(n) (not including output, which would be O(n * n!))
+        Space: O(n)
         Edge: None
         '''
         final_arr = []
-        def backtrack(permutation):
-            if len(permutation) == len(nums):
-                final_arr.append(permutation.copy())
+        stack = []
+        def backtrack(i):
+            if i == len(nums):
+                final_arr.append(stack[:])
                 return
             for num in nums:
-                if num not in permutation:
-                    permutation.append(num)
-                    backtrack(permutation)
-                    permutation.pop()
-        backtrack([])
+                if num not in stack:
+                    stack.append(num)
+                    backtrack(i+1)
+                    stack.pop()
+        backtrack(0)
         return final_arr
 
 result = Solution()
