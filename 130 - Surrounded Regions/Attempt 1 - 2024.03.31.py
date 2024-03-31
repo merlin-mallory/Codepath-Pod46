@@ -34,7 +34,40 @@ class Solution:
         board[i][j] is 'X' or 'O'.
 
         Do not return anything, modify board in-place instead.
+
+        Plan:
+        Graph Exploration with BFS
+        Time: O(m*n)
+        Space: O(m*n)
+        Edge: None
         """
+        if not board: return
+        rows = len(board)
+        cols = len(board[0])
+        visited_set = set()
+        def explore(r,c):
+            if (r < 0) or (c < 0) or (r == rows) or (c == cols) or ((r,c) in visited_set) or board[r][c] == "X":
+                return False
+            visited_set.add((r,c))
+            board[r][c] = "S"
+            explore(r+1,c)
+            explore(r-1,c)
+            explore(r,c+1)
+            explore(r,c-1)
+            return True
+
+        for r in range(rows):
+            explore(r,0)     # Explore left edge
+            explore(r, cols-1)  # Explore right edge
+        for c in range(cols):
+            explore(0, c)    # Explore top edge
+            explore(rows-1, c)  # Explore bottom edge
+
+        for r in range(rows):
+            for c in range(cols):
+                if board[r][c] == "O": board[r][c] = "X"
+                elif board[r][c] == "S": board[r][c] = "O"
+
 
 solution = Solution()
 
