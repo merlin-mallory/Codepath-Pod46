@@ -53,14 +53,13 @@ class Solution:
             time += 1
             for i in range(len(deque)):
                 r, c = deque.popleft()
-                grid[r][c] = 2
                 adj = [[1, 0], [-1, 0], [0, 1], [0, -1]]
                 for rmod, cmod in adj:
-                    row, col = r + rmod, c + cmod
-                    if (rows > row >= 0) and (cols > col >= 0) and (grid[row][col] == 1):
-                        grid[row][col] = 2
+                    new_r, new_c = r + rmod, c + cmod
+                    if (rows > new_r >= 0) and (cols > new_c >= 0) and (grid[new_r][new_c] == 1):
+                        grid[new_r][new_c] = 2
                         fresh_orange_count -= 1
-                        deque.append((row, col))
+                        deque.append((new_r, new_c))
 
         return time if (fresh_orange_count == 0) else -1
 
