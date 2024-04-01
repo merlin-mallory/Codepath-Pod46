@@ -37,7 +37,37 @@ class Solution:
         All values of nums are unique.
         nums is an ascending array that is possibly rotated.
         -10^4 <= target <= 10^4
+
+        Plan:
+        Binary Search
+        Time: O(log n)
+        Space: O(1)
+        Edge: None
         '''
+        l, r = 0, len(nums)-1
+        while l <= r:
+            m = (l + r) // 2
+            cur = nums[m]
+            if cur == target:
+                return m
+            elif (cur >= nums[0]):
+                # Cur is in the left segment
+                if (target >= nums[0]) and (target < cur):
+                    # Target is in the left segment to the left of cur
+                    r = m - 1
+                else:
+                    # Target is either in left segment to the right of cur, or is in the right segment
+                    l = m + 1
+            else:
+                # Cur is in the right segment
+                if (target <= nums[-1]) and (target > cur):
+                    # Target is in the right segment to the right of cur
+                    l = m + 1
+                else:
+                    # target is either in the right segment to the left of cur, or in in the left segment
+                    r = m -1
+        return -1
+
 
 
 result = Solution()
