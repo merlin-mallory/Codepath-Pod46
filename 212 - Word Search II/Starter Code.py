@@ -38,3 +38,12 @@ print(solution.findWords([["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],
 
 print(solution.findWords([["a","b"],["c","d"]], ["abcb"]))
 # []
+
+print(solution.findWords(
+[
+    ["o","a","b","n"],
+    ["o","t","a","e"],
+    ["a","h","k","r"],
+    ["a","f","l","v"]
+], ["oa","oaa"]))
+# ["oa", "oaa"]
