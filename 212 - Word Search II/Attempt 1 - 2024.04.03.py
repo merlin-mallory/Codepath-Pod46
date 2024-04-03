@@ -1,8 +1,9 @@
-from typing import List
 class TrieNode():
     def __init__(self):
         self.children = {}
         self.is_end = False
+
+from typing import List
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         '''
@@ -34,12 +35,17 @@ class Solution:
         words[i] consists of lowercase English letters.
         All the strings of words are unique.
 
-        Time: O(m*n*w * 4^z), where m = rows, n = cols, w= # of words, and z = length of the longest word in words.
-        Space: O(z * w + m * n), where z = length of the longest word in words, w = # of words, m = rows, n = columns
+        Plan:
+        Backtracking with Trie.
+        Construct the Trie
+        Loop through the board and the Trie. Return False if we reach a char not in the Trie. If we ever reach a
+        point where .is_end = True, append that word to the final_arr.
+        Time: O(m*n * 4^z), where m = rows, n = cols, and z = length of the longest word in words.
+        Space: O(z), which is the height of the recursive stack, which is the length of the longest word in words.
         Edge: None
         '''
         root = TrieNode()
-        def addWord(word):
+        for word in words:
             cur = root
             for c in word:
                 if c not in cur.children:
@@ -47,39 +53,30 @@ class Solution:
                 cur = cur.children[c]
             cur.is_end = True
 
-        for w in words:
-            addWord(w)
-
-        rows = len(board)
-        cols = len(board[0])
-        final_arr = set()
         visited_set = set()
+        rows, cols = len(board), len(board[0])
+        final_set = set()
 
-        def backtrack(r, c, node, word):
-            if (
-                r < 0 or c < 0 or r >= rows or c >= cols or
-                (r, c) in visited_set or
-                board[r][c] not in node.children
-            ):
+        def backtrack(r,c,cur,word):
+            if (r < 0) or (c < 0) or (r >= rows) or (c >= cols) or ((r,c) in visited_set) or (board[r][c] not in
+                                                                                              cur.children):
                 return
-
             visited_set.add((r,c))
-            node = node.children[board[r][c]]
             word += board[r][c]
+            cur = cur.children[board[r][c]]
+            if cur.is_end: final_set.add(word)
 
-            if node.is_end: final_arr.add(word)
-
-            backtrack(r-1, c, node, word)
-            backtrack(r+1, c, node, word)
-            backtrack(r, c-1, node, word)
-            backtrack(r, c+1, node, word)
+            backtrack(r+1,c,cur,word)
+            backtrack(r-1,c,cur,word)
+            backtrack(r,c+1,cur,word)
+            backtrack(r,c-1,cur,word)
             visited_set.remove((r,c))
 
         for r in range(rows):
             for c in range(cols):
-                backtrack(r, c, root, "")
+                backtrack(r,c,root,"")
 
-        return list(final_arr)
+        return list(final_set)
 
 
 solution = Solution()
