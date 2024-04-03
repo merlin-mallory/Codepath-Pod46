@@ -27,41 +27,42 @@ class Solution:
         Constraints:
         1 <= n <= 9
 
-        Time: O(n!)
-        Space: O(n^2) (m*n)
+        Plan:
+        Backtracking
+        Time: O(2^n)
+        Space: O(n)
         Edge: None
         '''
-        col_set = set()
-        pos_diag_set = set()
+        c_set = set()
         neg_diag_set = set()
+        pos_diag_set = set()
         final_arr = []
         board = []
-        for i in range(n):
+        for _ in range(n):
             row = []
-            for j in range(n):
+            for _ in range(n):
                 row.append(".")
             board.append(row)
         def backtrack(r):
-            if r == n:
+            if (r == n):
                 copy = ["".join(row) for row in board]
-                final_arr.append(copy)
+                final_arr.append(copy[:])
                 return
             for c in range(n):
-                if (c in col_set) or (r+c in pos_diag_set) or (r-c in neg_diag_set):
+                if (c in c_set) or (r-c in neg_diag_set) or (r+c in pos_diag_set):
                     continue
-                col_set.add(c)
-                pos_diag_set.add(r+c)
+                c_set.add(c)
                 neg_diag_set.add(r-c)
+                pos_diag_set.add(r+c)
                 board[r][c] = "Q"
-
-                backtrack(r + 1)
-
-                col_set.remove(c)
-                pos_diag_set.remove(r + c)
-                neg_diag_set.remove(r - c)
+                backtrack(r+1)
                 board[r][c] = "."
+                pos_diag_set.remove(r+c)
+                neg_diag_set.remove(r-c)
+                c_set.remove(c)
         backtrack(0)
         return final_arr
+
 
 result = Solution()
 print(result.solveNQueens(4))   # [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
