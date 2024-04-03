@@ -44,18 +44,20 @@ class Solution:
         stack.
         Edge: None
         '''
+        candidates.sort()
         final_arr = []
-        cur_arr = []
-        def backtrack(i, total):
-            if total == target:
-                final_arr.append(cur_arr[:])
+        stack = []
+        def backtrack(i, cur_sum):
+            if cur_sum == target:
+                final_arr.append(stack[:])
                 return
-            if (i >= len(candidates)) or (total > target):
+            if (cur_sum > target) or (i > len(candidates)-1):
                 return
-            cur_arr.append(candidates[i])
-            backtrack(i, total + candidates[i])
-            cur_arr.pop()
-            backtrack(i+1, total)
+            stack.append(candidates[i])
+            backtrack(i, cur_sum + candidates[i])
+            stack.pop()
+            backtrack(i+1, cur_sum)
+            return
         backtrack(0, 0)
         return final_arr
 
