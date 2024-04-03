@@ -37,7 +37,6 @@ class Solution:
         """
         import collections
         deque = collections.deque()
-        time = 0
         rows = len(grid)
         cols = len(grid[0])
         fresh_orange_count = 0
@@ -49,11 +48,13 @@ class Solution:
                 elif grid[r][c] == 2:
                     deque.append((r, c))
 
+        time = 0
+        adj = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+
         while deque and (fresh_orange_count > 0):
             time += 1
             for i in range(len(deque)):
                 r, c = deque.popleft()
-                adj = [[1, 0], [-1, 0], [0, 1], [0, -1]]
                 for rmod, cmod in adj:
                     new_r, new_c = r + rmod, c + cmod
                     if (rows > new_r >= 0) and (cols > new_c >= 0) and (grid[new_r][new_c] == 1):
