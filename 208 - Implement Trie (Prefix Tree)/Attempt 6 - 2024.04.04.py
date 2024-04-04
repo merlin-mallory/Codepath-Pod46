@@ -60,7 +60,7 @@ class Trie:
         for c in word:
             if c not in cur.children:
                 cur.children[c] = TrieNode()
-            cur = cur.children
+            cur = cur.children[c]
         cur.is_end = True
         return None
 
@@ -68,14 +68,14 @@ class Trie:
         cur = self.root
         for c in word:
             if c not in cur.children: return False
-            cur = cur.children
+            cur = cur.children[c]
         return cur.is_end
 
     def startsWith(self, prefix: str) -> bool:
         cur = self.root
         for c in prefix:
             if c not in cur.children: return False
-            cur = cur.children
+            cur = cur.children[c]
         return True
 
 # Your Trie object will be instantiated and called as such:
