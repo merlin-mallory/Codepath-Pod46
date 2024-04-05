@@ -26,30 +26,8 @@ class Solution:
         0 <= ai <= bi < n
         ai != bi
         There are no repeated edges.
-
-        Time: O(V + E)
-        Space: O(V + E)
-        Edge: None
         '''
-        import collections
-        adj_dict = collections.defaultdict(list)
-        for a,b in edges:
-            adj_dict[a].append(b)
-            adj_dict[b].append(a)
-        visited_set = set()
-        set_count = 0
-        def dfs(key):
-            if key in visited_set: return
-            visited_set.add(key)
-            for neighbor in adj_dict[key]:
-                dfs(neighbor)
 
-        for node in range(n):
-            if node not in visited_set:
-                dfs(node)
-                set_count += 1
-
-        return set_count
 
 
 solution = Solution()
