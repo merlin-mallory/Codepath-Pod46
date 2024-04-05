@@ -80,7 +80,7 @@ class Solution:
         Example 3:
         Input: adjList = []
         Output: []
-        Explanation: This an empty graph, it does not have any nodes. So we should just return (not return [])
+        Explanation: This an empty graph, it does not have any nodes.
 
         Constraints:
         The number of nodes in the graph is in the range [0, 100].
@@ -88,7 +88,27 @@ class Solution:
         Node.val is unique for each node.
         There are no repeated edges and no self-loops in the graph.
         The Graph is connected and all nodes can be visited starting from the given node.
+
+        Plan:
+        Tree Traversal with DFS
+        Time: O(V+E)
+        Space: O(V+E)
+        Edge: Len of nodes can be 0
         '''
+        if not node: return
+        old_to_new = {}
+        def explore(node):
+            if (not node) or (node in old_to_new):
+                return
+            old_to_new[node] = Node(node.val)
+            for neighbor in node.neighbors:
+                explore(neighbor)
+        explore(node)
+
+        for old_node, new_node in old_to_new.items():
+            for old_neighbor in old_node.neighbors:
+                new_node.neighbors.append(old_to_new[old_neighbor])
+        return old_to_new[node]
 
 solution = Solution()
 
