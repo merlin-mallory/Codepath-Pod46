@@ -29,7 +29,27 @@ class Solution:
         n == grid[i].length
         1 <= m, n <= 50
         grid[i][j] is either 0 or 1.
+
+        Plan:
+        Graph Traversal with DFS
+        Time: O(m*n)
+        Space: O(m*n)
+        Edge: None
         '''
+        max_area = [0]
+        rows, cols = len(grid), len(grid[0])
+        visited_set = set()
+        def explore(r,c):
+            if (r < 0) or (c < 0) or (r >= rows) or (c >= cols) or ((r,c) in visited_set) or (grid[r][c] == 0):
+                return False
+            visited_set.add((r,c))
+            return 1 + explore(r+1,c) + explore(r-1,c) + explore(r,c+1) + explore(r,c-1)
+
+        for r in range(rows):
+            for c in range(cols):
+                cur_area = explore(r,c)
+                max_area[0] = max(max_area[0], cur_area)
+        return max_area[0]
 
 
 solution = Solution()
