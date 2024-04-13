@@ -30,7 +30,7 @@ class Solution:
 
         Plan:
         Backtracking
-        Time: O(n * 2^n)
+        Time: O(2^n)
         Space: O(n)
         Edge: None, but need to handle duplicates
         '''
