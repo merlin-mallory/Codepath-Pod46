@@ -34,7 +34,34 @@ class Solution:
         board[i][j] is 'X' or 'O'.
 
         Do not return anything, modify board in-place instead.
+
+        Graph Traversal with DFS
+        Time: O(m*n)
+        Space: O(m*n)
+        Edge: None
         """
+        rows, cols = len(board), len(board[0])
+        def explore(r,c):
+            if (r < 0) or (c < 0) or (r >= rows) or (c >= cols) or (board[r][c] != "O"):
+                return
+            board[r][c] = "S"
+            explore(r+1,c)
+            explore(r-1,c)
+            explore(r,c+1)
+            explore(r,c-1)
+
+        for r in range(rows):
+            explore(r, 0)       # Left edge
+            explore(r, cols-1)     # Right edge
+        for c in range(cols):
+            explore(0, c)       # Top edge
+            explore(rows-1, c)     # Bottom edge
+
+        for r in range(rows):
+            for c in range(cols):
+                if board[r][c] == "O": board[r][c] = "X"
+                elif board[r][c] == "S": board[r][c] = "O"
+
 
 solution = Solution()
 
