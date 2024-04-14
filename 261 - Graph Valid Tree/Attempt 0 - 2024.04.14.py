@@ -1,6 +1,4 @@
 from typing import List
-
-
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
         '''
@@ -20,6 +18,12 @@ class Solution:
         0 <= ai, bi < n
         ai != bi
         There are no self-loops or repeated edges.
+
+        Plan:
+        Graph Traversal with DFS
+        Time: O(V+E) (in worst case, a dense graph, E could be V^2, but constraints make it just E)
+        Space: O(V+E)
+        Edge: None, but need to make sure 1. Graph is connected and 2. There aren't any cycles.
         '''
         import collections
         if not n: return True
