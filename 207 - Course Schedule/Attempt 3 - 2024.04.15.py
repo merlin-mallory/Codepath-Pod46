@@ -22,36 +22,37 @@ class Solution:
 
         Plan:
         Graph Traversal with DFS
-        Time: O(V + P), where V = numCourses, and P = len of prerequisites
-        Space: O(V + P), where V = numCourses, and P= len of prerequisites
+        Time: O(V+E)
+        Space: O(V+E)
         Edge: None
         '''
         import collections
-        prereq_dict = collections.defaultdict(list)
-        for course, prereq in prerequisites:
-            prereq_dict[course].append(prereq)
+        course_to_prereq = collections.defaultdict(list)
+        for a, b in prerequisites:
+            course_to_prereq[a].append(b)
+            # course_to_prereq[b].append(a)
         visited_set = set()
-        def dfs(course):
-            if prereq_dict[course] == []: return True
+        def explore(course):
+            if course_to_prereq[course] == []: return True
             if course in visited_set: return False
             visited_set.add(course)
-            for prereq in prereq_dict[course]:
-                if not dfs(prereq): return False
-            visited_set.remove(course)
-            prereq_dict[course] = []
+            for prereq in course_to_prereq[course]:
+                if not explore(prereq): return False
+            course_to_prereq[course] = []
+            # visited_set.remove(course)
             return True
-
         for course in range(numCourses):
-            if not dfs(course): return False
+            if not explore(course): return False
         return True
+
 
 solution = Solution()
 
-print(solution.canFinish(2, [[1, 0]]))  # True
+print(solution.canFinish(2,[[1,0]]))        # True
 # Explanation: There are a total of 2 courses to take. To take course 1 you should have finished course 0. So it is
 # possible.
 
-print(solution.canFinish(2, [[1, 0], [0, 1]]))  # False
+print(solution.canFinish(2,[[1,0],[0,1]]))  # False
 # Explanation: There are a total of 2 courses to take. To take course 1 you should have finished course 0,
 # and to take course 0 you should also have finished course 1. So it is impossible.
 
