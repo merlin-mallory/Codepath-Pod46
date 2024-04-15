@@ -1,6 +1,9 @@
+from typing import List
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         '''
+        332 - Reconstruct Itinerary
+
         https://leetcode.com/problems/reconstruct-itinerary/
 
         You are given a list of airline tickets where tickets[i] = [fromi, toi] represent the departure and the
@@ -13,15 +16,6 @@ class Solution:
         For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
         You may assume all tickets form at least one valid itinerary. You must use all the tickets once and only once.
 
-        Input: tickets = [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]
-        Output: ["JFK","MUC","LHR","SFO","SJC"]
-
-        Input: tickets = [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
-        Output: ["JFK",
-        "ATL","JFK","SFO","ATL","SFO"]
-        Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK",
-        "ATL","SFO"] but it is larger in lexical order.
-
         Constraints:
         1 <= tickets.length <= 300
         tickets[i].length == 2
@@ -30,3 +24,12 @@ class Solution:
         fromi and toi consist of uppercase English letters.
         fromi != toi
         '''
+
+solution = Solution()
+print(solution.findItinerary([["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]))
+# ["JFK","MUC","LHR","SFO","SJC"]
+
+print(solution.findItinerary([["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]))
+# ["JFK","ATL","JFK","SFO","ATL","SFO"]
+# Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"], but it is larger in lexical
+# order.
