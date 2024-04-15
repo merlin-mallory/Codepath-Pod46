@@ -23,8 +23,36 @@ class Solution:
         beginWord, endWord, and wordList[i] consist of lowercase English letters.
         beginWord != endWord
         All the words in wordList are unique.
-        '''
 
+        Plan:
+        Graph Traversal with BFS
+        Time: O(m * n), where m = len of beginWord, and n = len of wordList
+        Space: O(n * m^2), where m = len of beginWord, and n = len of wordList
+        Edge: Need to handle the possibility that endWord might not be in the wordList.
+        '''
+        import collections
+        if endWord not in wordList: return 0
+        neighbor_dict = collections.defaultdict(list)
+        wordList.append(beginWord)
+        for word in wordList:
+            for j in range(len(word)):
+                pattern = word[:j] + "*" + word[j+1:]
+                neighbor_dict[pattern].append(word)
+        visited_set = set(beginWord)
+        deque = collections.deque([beginWord])
+        res = 1
+        while deque:
+            for i in range(len(deque)):
+                word = deque.popleft()
+                if word == endWord: return res
+                for j in range(len(word)):
+                    pattern = word[:j] + "*" + word[j+1:]
+                    for neiWord in neighbor_dict[pattern]:
+                        if neiWord not in visited_set:
+                            visited_set.add(neiWord)
+                            deque.append(neiWord)
+            res += 1
+        return 0
 
 solution = Solution()
 print(solution.ladderLength("hit", "cog", ["hot","dot","dog","lot","log","cog"]))   # 5
