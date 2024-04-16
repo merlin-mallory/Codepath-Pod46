@@ -26,36 +26,63 @@ class Solution:
 
         Plan:
         Graph Traversal with DFS (Hierholzer's Algorithm)
-        Time: O(n^2), where n = len of tickets
-        Space: O(n), where n = len of tickets
+        Time: O(n log n), the initial sort. The DFS traversal processes each ticket once because we permanently pop
+        tickets from the dict when they are processed, which guarantees that we will never double process a node.
+        Space: O(n)
+        Edge: None, but need to handle lexical order
         '''
         import collections
-        adj = collections.defaultdict(list)
-        final_arr = []
+        tickets.sort()
+        source_to_dest = collections.defaultdict(list)
+        for a, b in tickets:
+            source_to_dest[a].append(b)
+        for key in source_to_dest:
+            source_to_dest[key].sort(reverse=True)
+        stack = ["JFK"]
+        path = []
+        while stack:
+            while source_to_dest[stack[-1]]:
+                next_city = source_to_dest[stack[-1]].pop()
+                stack.append(next_city)
+            path.append(stack.pop())
+        return path[::-1]
 
-        for src, dst in tickets:
-            adj[src].append(dst)
-
-        for key in adj:
-            adj[key].sort()
-
-        def dfs(adj, src):
-            if src in adj:
-                destinations = adj[src][:]
-                while destinations:
-                    dest = destinations[0]
-                    adj[src].pop(0)
-                    dfs(adj, dest)
-                    destinations = adj[src][:]
-            final_arr.append(src)
-
-        dfs(adj, "JFK")
-        final_arr.reverse()
-
-        if len(final_arr) != len(tickets) + 1:
-            return []
-
-        return final_arr
+# Neetcode Solution
+# class Solution:
+#     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+#         '''
+#         Plan:
+#         Graph Traversal with DFS (Hierholzer's Algorithm)
+#         Time: O(n^2), where n = len of tickets
+#         Space: O(n), where n = len of tickets
+#         '''
+#         import collections
+#         adj = collections.defaultdict(list)
+#         final_arr = []
+#
+#         for src, dst in tickets:
+#             adj[src].append(dst)
+#
+#         for key in adj:
+#             adj[key].sort()
+#
+#         def dfs(adj, src):
+#             if src in adj:
+#                 destinations = adj[src][:]
+#                 while destinations:
+#                     dest = destinations[0]
+#                     adj[src].pop(0)
+#                     dfs(adj, dest)
+#                     destinations = adj[src][:]
+#             final_arr.append(src)
+#
+#         dfs(adj, "JFK")
+#         final_arr.reverse()
+#
+#         if len(final_arr) != len(tickets) + 1:
+#             return []
+#
+#         return final_arr
 
 
 # Leetcode Solution
