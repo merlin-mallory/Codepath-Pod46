@@ -40,18 +40,18 @@ class Solution:
                 neighbor_dict[pattern].append(word)
         visited_set = set(beginWord)
         deque = collections.deque([beginWord])
-        res = 1
+        count = 1
         while deque:
             for i in range(len(deque)):
                 word = deque.popleft()
-                if word == endWord: return res
+                if word == endWord: return count
                 for j in range(len(word)):
                     pattern = word[:j] + "*" + word[j+1:]
-                    for neiWord in neighbor_dict[pattern]:
-                        if neiWord not in visited_set:
-                            visited_set.add(neiWord)
-                            deque.append(neiWord)
-            res += 1
+                    for neighbor in neighbor_dict[pattern]:
+                        if neighbor not in visited_set:
+                            visited_set.add(neighbor)
+                            deque.append(neighbor)
+            count += 1
         return 0
 
 solution = Solution()
