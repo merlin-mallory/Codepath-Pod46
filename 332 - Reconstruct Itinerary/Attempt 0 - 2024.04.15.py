@@ -25,7 +25,7 @@ class Solution:
         fromi != toi
 
         Plan:
-        Graph Traversal with DFS (Hierholzer's Algorithm)
+        Graph Traversal with DFS (Hierholzer's Algorithm without Backtracking)
         Time: O(n log n), the initial sort. The DFS traversal processes each ticket once because we permanently pop
         tickets from the dict when they are processed, which guarantees that we will never double process a node.
         Space: O(n)
