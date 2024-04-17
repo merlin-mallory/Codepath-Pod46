@@ -34,6 +34,8 @@ class Solution:
         Binary Search
         1. Loop through piles and find the max_val. k will be somewhere between 1 and max_val.
         2. Do binary search to try to find the best k that meets the requirements.
+
+        Time: O(n*log(max(piles))
         '''
         import math
         l, r = 1, max(piles)
