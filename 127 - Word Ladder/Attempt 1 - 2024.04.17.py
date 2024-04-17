@@ -25,31 +25,30 @@ class Solution:
         All the words in wordList are unique.
 
         Plan:
-        Graph Traversal with BFS
-        Time: O(m * n^2), where m = len of wordList, and n = len of beginWord
-        Space: O(n * m^2), where m = len of beginWord, and n = len of wordList
-        Edge: Need to handle the possibility that endWord might not be in the wordList.
+        Graph Traversal with DFS
+        Time: O(w * n), where w = len of wordList, and n = len of endWord
+        Space: O(w * n^2)
+        Edge: None
         '''
         import collections
-        if endWord not in wordList: return 0
-        neighbor_dict = collections.defaultdict(list)
+        pattern_dict = collections.defaultdict(list)
         wordList.append(beginWord)
-        # This loop time: O(m * n), space: O(m * n)
+        if endWord not in wordList: return 0
         for word in wordList:
-            for j in range(len(word)):
-                pattern = word[:j] + "*" + word[j+1:]
-                neighbor_dict[pattern].append(word)
+            for i in range(len(word)):
+                cur_pattern = word[:i] + "*" + word[i+1:]
+                pattern_dict[cur_pattern].append(word)
+
         visited_set = set(beginWord)
         deque = collections.deque([beginWord])
         count = 1
-        # This BFS time: O(m^2 * n), Space: O(m)
         while deque:
             for i in range(len(deque)):
                 word = deque.popleft()
                 if word == endWord: return count
                 for j in range(len(word)):
                     pattern = word[:j] + "*" + word[j+1:]
-                    for neighbor in neighbor_dict[pattern]:
+                    for neighbor in pattern_dict[pattern]:
                         if neighbor not in visited_set:
                             visited_set.add(neighbor)
                             deque.append(neighbor)
