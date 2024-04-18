@@ -19,7 +19,14 @@ class Solution:
         1 <= points.length <= 1000
         -106 <= xi, yi <= 106
         All pairs (xi, yi) are distinct.
+
+        Plan:
+        Graph Traversal with Minheap and Prim's Algorithm
+        Time: O(n log n)
+        Space: O(n)
+        Edge: None
         '''
+
 
 
 solution = Solution()
