@@ -1,6 +1,5 @@
 from typing import List
 
-
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         '''
@@ -30,36 +29,70 @@ class Solution:
         There are no repeated edges.
 
         Plan:
-        Graph Traversal with DFS
-        Time: O(V + E)
-        Space: O(V + E)
+        Union Find
+        Time: O(V+E)
+        Space: O(V)
         Edge: None
         '''
-        import collections
-        adj_dict = collections.defaultdict(list)
-        for a, b in edges:
-            adj_dict[a].append(b)
-            adj_dict[b].append(a)
+        component_count = n
+        par = [i for i in range(n)]
+        rank = [1] * len(par)
+        def find_parent(node):
+            while node != par[node]:
+                par[node] = par[par[node]]
+                node = par[node]
+            return node
+        def union(n1, n2):
+            p1, p2 = find_parent(n1), find_parent(n2)
+            if p1 == p2: return False
+            if rank[p1] >= rank[p2]:
+                par[p2] = p1
+                rank[p1] += rank[p2]
+            else:
+                par[p1] = p2
+                rank[p2] += rank[p1]
+            return True
 
-        visited_set = set()
-        set_count = 0
+        for n1, n2 in edges:
+            if union(n1,n2): component_count -= 1
 
-        def dfs(node):
-            stack = [ node ]
-            while stack:
-                cur = stack.pop()
-                for neighbor in adj_dict[cur]:
-                    if neighbor not in visited_set:
-                        visited_set.add(neighbor)
-                        stack.append(neighbor)
+        return component_count
 
-        for node in range(n):
-            if node not in visited_set:
-                visited_set.add(node)
-                dfs(node)
-                set_count += 1
-
-        return set_count
+# Personal DFS solution
+# class Solution:
+#     def countComponents(self, n: int, edges: List[List[int]]) -> int:
+#         '''
+#         Plan:
+#         Graph Traversal with DFS
+#         Time: O(V + E)
+#         Space: O(V + E)
+#         Edge: None
+#         '''
+#         import collections
+#         adj_dict = collections.defaultdict(list)
+#         for a, b in edges:
+#             adj_dict[a].append(b)
+#             adj_dict[b].append(a)
+#
+#         visited_set = set()
+#         set_count = 0
+#
+#         def dfs(node):
+#             stack = [ node ]
+#             while stack:
+#                 cur = stack.pop()
+#                 for neighbor in adj_dict[cur]:
+#                     if neighbor not in visited_set:
+#                         visited_set.add(neighbor)
+#                         stack.append(neighbor)
+#
+#         for node in range(n):
+#             if node not in visited_set:
+#                 visited_set.add(node)
+#                 dfs(node)
+#                 set_count += 1
+#
+#         return set_count
 
 # DFS recursive alternative
 # class Solution:
