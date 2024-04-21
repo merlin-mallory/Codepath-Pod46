@@ -26,8 +26,9 @@ class Solution:
 
         Plan:
         Graph Traversal with BFS
-        Time: O(m * n^2), where m = len of wordList, and n = len of beginWord
-        Space: O(n * m^2), where m = len of beginWord, and n = len of wordList
+        Time: O(m * n^2), where m = len of beginWord, and n = len of wordList
+        Space: O(m * n^2), where m = len of beginWord, and n = len of wordList, but realistically O(m*n) because each
+        word appears in exactly m patterns.
         Edge: Need to handle the possibility that endWord might not be in the wordList.
         '''
         import collections
@@ -42,7 +43,8 @@ class Solution:
         visited_set = set(beginWord)
         deque = collections.deque([beginWord])
         count = 1
-        # This BFS time: O(m^2 * n), Space: O(m)
+        # This BFS time: O(m^2 * n), Space: O(m).
+        # The Outer loop time is O(n) because of the visited_set, the inner loop time is O(m*n)
         while deque:
             for i in range(len(deque)):
                 word = deque.popleft()
