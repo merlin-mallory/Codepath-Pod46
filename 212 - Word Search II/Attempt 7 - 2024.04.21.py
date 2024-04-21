@@ -1,8 +1,9 @@
-from typing import List
-class TrieNode():
+class TrieNode:
     def __init__(self):
         self.children = {}
         self.is_end = False
+
+from typing import List
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         '''
@@ -40,8 +41,9 @@ class Solution:
         Space: O(w * a * z), where w = number of words, a = avg len of word in words, and z = max len of word in words
         Edge: None
         '''
+        rows, cols = len(board), len(board[0])
         root = TrieNode()
-        def addWord(word):
+        for word in words:
             cur = root
             for c in word:
                 if c not in cur.children:
@@ -49,40 +51,27 @@ class Solution:
                 cur = cur.children[c]
             cur.is_end = True
 
-        for w in words:
-            addWord(w)
-
-        rows = len(board)
-        cols = len(board[0])
-        final_arr = set()
+        board_set = set()
         visited_set = set()
-
-        def backtrack(r, c, node, word):
-            if (
-                r < 0 or c < 0 or r >= rows or c >= cols or
-                (r, c) in visited_set or
-                board[r][c] not in node.children
-            ):
+        def dfs(r,c,cur,word):
+            if (r < 0) or (c < 0) or (r == rows) or (c == cols) or ((r,c) in visited_set) or (board[r][c] not in
+                                                                                              cur.children):
                 return
-
             visited_set.add((r,c))
-            node = node.children[board[r][c]]
             word += board[r][c]
-
-            if node.is_end: final_arr.add(word)
-
-            backtrack(r-1, c, node, word)
-            backtrack(r+1, c, node, word)
-            backtrack(r, c-1, node, word)
-            backtrack(r, c+1, node, word)
+            cur = cur.children[board[r][c]]
+            if cur.is_end:
+                board_set.add(word)
+            dfs(r+1,c,cur,word)
+            dfs(r-1,c,cur,word)
+            dfs(r,c+1,cur,word)
+            dfs(r,c-1,cur,word)
             visited_set.remove((r,c))
 
         for r in range(rows):
             for c in range(cols):
-                backtrack(r, c, root, "")
-
-        return list(final_arr)
-
+                dfs(r,c,root,"")
+        return list(board_set)
 
 solution = Solution()
 print(solution.findWords([["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]],
@@ -100,3 +89,6 @@ print(solution.findWords(
     ["a","f","l","v"]
 ], ["oa","oaa"]))
 # ["oa", "oaa"]
+
+print(solution.findWords([["a","a"]], ["aaa"]))
+# []
