@@ -44,47 +44,31 @@ class MedianFinder:
     Time: O(log n) for addnum, O(1) for findMedian
     Space: O(n), where n = total number of nums added
     Edge: None
-
-    Follow-Up Scenarios Optimization Discussion
-    All Integers in the Range [0, 100]:
-    If all integers are guaranteed to be within a specific small range (e.g., [0, 100]), using two heaps might not be
-    the most space-efficient method. An alternative could be using a counting sort-like approach with an array of size
-    101 (for each possible value between 0 and 100). Each entry in this array would count the number of times a number
-    appears. This would allow for constant-time updates (O(1)) and potentially faster median finding by iterating over
-    the array to find the middle value based on counts, especially efficient if there's a high frequency of certain
-    numbers.
-    99% of Integers in the Range [0, 100]:
-    For scenarios where most but not all numbers fall within a certain range, a hybrid approach could be utilized.
-    Maintain a counting array for the common range and use heaps for numbers outside of that range. This method would
-    handle the bulk of data efficiently with the array, while still accommodating outliers with heaps. This would
-    reduce the number of elements in the heaps and improve performance for both addNum and findMedian operations for
-    the majority of inputs.
     '''
 
     def __init__(self):
         ''''''
         self.left_max_heap = []
         self.right_min_heap = []
-        self.total_len = 0
 
     def addNum(self, num: int) -> None:
         ''''''
         import heapq
-        if (not self.left_max_heap) or (num <= -self.left_max_heap[0]):
+        if (not self.left_max_heap) or (num < -self.left_max_heap[0]):
             heapq.heappush(self.left_max_heap, -num)
         else:
             heapq.heappush(self.right_min_heap, num)
 
-        if len(self.left_max_heap) > (len(self.right_min_heap) + 1):
+        if (len(self.left_max_heap)) > (len(self.right_min_heap) + 1):
             heapq.heappush(self.right_min_heap, -heapq.heappop(self.left_max_heap))
-        elif len(self.right_min_heap) > (len(self.left_max_heap) + 1):
+        elif (len(self.right_min_heap)) > (len(self.left_max_heap) + 1):
             heapq.heappush(self.left_max_heap, -heapq.heappop(self.right_min_heap))
 
-        self.total_len += 1
 
     def findMedian(self) -> float:
         ''''''
-        if self.total_len % 2 == 1:
+        total_len = len(self.left_max_heap) + len(self.right_min_heap)
+        if total_len % 2 == 1:
             if len(self.left_max_heap) > len(self.right_min_heap):
                 return -self.left_max_heap[0]
             else:
