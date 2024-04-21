@@ -1,7 +1,7 @@
 class TrieNode:
     def __init__(self):
-        self.children = {}  # a : TrieNode
-        self.word = False
+        self.children = {}
+        self.is_end = False
 
 class WordDictionary:
     '''
@@ -40,7 +40,7 @@ class WordDictionary:
     word in addWord consists of lowercase English letters.
     word in search consist of '.' or lowercase English letters.
     There will be at most 2 dots in word for search queries.
-    At most 104 calls will be made to addWord and search.
+    At most 10^4 calls will be made to addWord and search.
 
     Plan:
     Trie
@@ -57,25 +57,20 @@ class WordDictionary:
             if c not in cur.children:
                 cur.children[c] = TrieNode()
             cur = cur.children[c]
-        cur.word = True
+        cur.is_end = True
+        return None
 
     def search(self, word: str) -> bool:
-        def dfs(j, root):
-            cur = root
-
-            for i in range(j, len(word)):
-                c = word[i]
+        def dfs(i, cur):
+            for j in range(i, len(word)):
+                c = word[j]
                 if c == ".":
                     for child in cur.children.values():
-                        if dfs(i + 1, child):
-                            return True
+                        if dfs(j+1, child): return True
                     return False
-                else:
-                    if c not in cur.children:
-                        return False
-                    cur = cur.children[c]
-            return cur.word
-
+                elif c not in cur.children: return False
+                cur = cur.children[c]
+            return cur.is_end
         return dfs(0, self.root)
 
 # Your WordDictionary object will be instantiated and called as such:
