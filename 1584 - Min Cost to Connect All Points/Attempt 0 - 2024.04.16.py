@@ -44,13 +44,13 @@ class Solution:
         total_cost = 0
 
         while len(visited_set) < n:
-            cur_cost, i = heapq.heappop(min_heap)
-            if i in visited_set: continue
-            visited_set.add(i)
+            cur_cost, cur_i = heapq.heappop(min_heap)
+            if cur_i in visited_set: continue
+            visited_set.add(cur_i)
             total_cost += cur_cost
-            for next_cost, j in adj[i]:
-                if j not in visited_set:
-                    heapq.heappush(min_heap, (next_cost, j))
+            for next_cost, next_i in adj[cur_i]:
+                if next_i not in visited_set:
+                    heapq.heappush(min_heap, (next_cost, next_i))
 
         return total_cost
 
