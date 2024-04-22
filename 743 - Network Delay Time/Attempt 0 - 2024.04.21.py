@@ -24,7 +24,7 @@ class Solution:
 
         Plan:
         Graph Traversal with BFS (Dijkstra's Algo)
-        Time: O(E log E)
+        Time: O(E log V)
         Space: Technically O(V+E), but number of edges dominates because of constraints, so O(E)
         Edge: None
         '''
@@ -33,18 +33,46 @@ class Solution:
         for source, dest, time in times:
             source_to_dest[source].append((time, dest))
         minheap = [(0, k)] # (time, node)
-        visited_dict = {}
+        visited_set = set()
+        total_time = 0
         while minheap:
-            time, node = heapq.heappop(minheap)
-            if node not in visited_dict:
-                visited_dict[node] = time
-                for time2, dest2 in source_to_dest[node]:
-                    if dest2 not in visited_dict:
-                        heapq.heappush(minheap, (time + time2, dest2))
-        if len(visited_dict) == n:
-            return max(visited_dict.values())
-        else:
-            return -1
+            t1, n1 = heapq.heappop(minheap)
+            if n1 in visited_set: continue
+            visited_set.add(n1)
+            total_time = t1
+
+            for t2, n2 in source_to_dest[n1]:
+                if n2 not in visited_set:
+                    heapq.heappush(minheap, (t1 + t2, n2))
+        return total_time if (len(visited_set) == n) else -1
+
+# ChatGPT Solution
+# class Solution:
+#     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+#         '''
+#         Plan:
+#         Graph Traversal with BFS (Dijkstra's Algo)
+#         Time: O(E log E)
+#         Space: Technically O(V+E), but number of edges dominates because of constraints, so O(E)
+#         Edge: None
+#         '''
+#         import collections, heapq
+#         source_to_dest = collections.defaultdict(list)
+#         for source, dest, time in times:
+#             source_to_dest[source].append((time, dest))
+#         minheap = [(0, k)] # (time, node)
+#         visited_dict = {}
+#         while minheap:
+#             time, node = heapq.heappop(minheap)
+#             if node not in visited_dict:
+#                 visited_dict[node] = time
+#                 for time2, dest2 in source_to_dest[node]:
+#                     if dest2 not in visited_dict:
+#                         heapq.heappush(minheap, (time + time2, dest2))
+#         if len(visited_dict) == n:
+#             return max(visited_dict.values())
+#         else:
+#             return -1
 
 solution = Solution()
 print(solution.networkDelayTime( [[2,1,1],[2,3,1],[3,4,1]], 4, 2))  # 2
