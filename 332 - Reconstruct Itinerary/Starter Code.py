@@ -23,6 +23,11 @@ class Solution:
         toi.length == 3
         fromi and toi consist of uppercase English letters.
         fromi != toi
+
+        Plan: DFS with Hierholzer's Algorithm (without backtracking)
+        Time: O(n log n)
+        Space: O(n)
+        Edge: None
         '''
 
 solution = Solution()

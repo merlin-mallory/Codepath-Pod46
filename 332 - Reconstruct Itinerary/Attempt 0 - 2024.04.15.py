@@ -26,26 +26,55 @@ class Solution:
 
         Plan:
         Graph Traversal with DFS (Hierholzer's Algorithm without Backtracking)
-        Time: O(n log n), the initial sort. The DFS traversal processes each ticket once because we permanently pop
+        Time: O(n log n), the sort. The DFS traversal processes each ticket once because we permanently pop
         tickets from the dict when they are processed, which guarantees that we will never double process a node.
         Space: O(n)
         Edge: None, but need to handle lexical order
         '''
         import collections
-        tickets.sort()
         source_to_dest = collections.defaultdict(list)
-        for a, b in tickets:
-            source_to_dest[a].append(b)
-        for key in source_to_dest:
-            source_to_dest[key].sort(reverse=True)
+        for source, dest in tickets:
+            source_to_dest[source].append(dest)
+        for source, list_of_dests in source_to_dest.items():
+            list_of_dests.sort(reverse=True)
         stack = ["JFK"]
-        path = []
+        final_arr = []
         while stack:
             while source_to_dest[stack[-1]]:
                 next_city = source_to_dest[stack[-1]].pop()
                 stack.append(next_city)
-            path.append(stack.pop())
-        return path[::-1]
+            final_arr.append(stack.pop())
+        return final_arr[::-1]
+
+# Recursive Version
+# class Solution:
+#     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+#         '''
+#         Plan: DFS with Hierholzer's Algorithm (without backtracking)
+#         Time: O(n log n)
+#         Space: O(n)
+#         Edge: None
+#         '''
+#         import collections
+#         tickets.sort()
+#         source_to_dest = collections.defaultdict(list)
+#         for source, dest in tickets:
+#             source_to_dest[source].append(dest)
+#
+#         for source, list_of_dests in source_to_dest.items():
+#             list_of_dests.sort(reverse=True)
+#
+#         final_arr = []
+#
+#         def dfs(source):
+#             while source_to_dest[source]:
+#                 next_dest = source_to_dest[source].pop()
+#                 dfs(next_dest)
+#             final_arr.append(source)
+#
+#         dfs("JFK")
+#         return final_arr[::-1]
+
 
 # Neetcode Solution
 # class Solution:
