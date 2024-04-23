@@ -23,7 +23,29 @@ class Solution:
         toi.length == 3
         fromi and toi consist of uppercase English letters.
         fromi != toi
+
+        Plan: DFS with Hierholzer's Algorithm (without backtracking)
+        Time: O(n log n)
+        Space: O(n)
+        Edge: None
         '''
+        import collections
+        source_to_dest = collections.defaultdict(list)
+        for source, dest in tickets:
+            source_to_dest[source].append(dest)
+        for source, list_of_dests in source_to_dest.items():
+            list_of_dests.sort(reverse=True)
+
+        stack = ["JFK"]
+        path = []
+        while stack:
+            while source_to_dest[stack[-1]]:
+                next_dest = source_to_dest[stack[-1]].pop()
+                stack.append(next_dest)
+            path.append(stack.pop())
+        return path[::-1]
+
+
 
 solution = Solution()
 print(solution.findItinerary([["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]))
