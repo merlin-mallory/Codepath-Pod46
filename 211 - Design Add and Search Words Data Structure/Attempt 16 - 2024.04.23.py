@@ -43,7 +43,7 @@ class WordDictionary:
 
     Plan:
     Trie with Backtracking
-    Time: O(n*26^n), where n = max len of word
+    Time: O(n*26^d), where n = max len of word, and d = # of dots
     Space: O(n), where n = max len of word
     '''
     def __init__(self):
