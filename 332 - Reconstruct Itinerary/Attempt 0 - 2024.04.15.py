@@ -33,10 +33,9 @@ class Solution:
         '''
         import collections
         source_to_dest = collections.defaultdict(list)
+        tickets.sort(reverse=True)
         for source, dest in tickets:
             source_to_dest[source].append(dest)
-        for source, list_of_dests in source_to_dest.items():
-            list_of_dests.sort(reverse=True)
         stack = ["JFK"]
         final_arr = []
         while stack:

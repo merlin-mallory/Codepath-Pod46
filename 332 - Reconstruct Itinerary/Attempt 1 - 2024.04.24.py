@@ -32,10 +32,10 @@ class Solution:
         '''
         import collections
         source_to_dest = collections.defaultdict(list)
-        for source, dest in tickets:
+        for source, dest in sorted(tickets, reverse=True):
             source_to_dest[source].append(dest)
-        for source, list_of_dests in source_to_dest.items():
-            list_of_dests.sort(reverse=True)
+        # for source, list_of_dests in source_to_dest.items():
+        #     list_of_dests.sort(reverse=True)
         stack = ["JFK"]
         path = []
         while stack:
