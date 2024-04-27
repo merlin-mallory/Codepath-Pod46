@@ -33,22 +33,20 @@ class Solution:
                 l += 1
                 r -= 1
             return True
-
-        final_arr = []
         stack = []
+        final_arr = []
         def backtrack(i):
-            if i >= len(s):
+            if i == len(s):
                 final_arr.append(stack[:])
                 return
             for j in range(i, len(s)):
-                if isPalindrome(s, i, j):
+                if isPalindrome(s,i,j):
                     stack.append(s[i:j+1])
-                    backtrack(j + 1)
+                    backtrack(j+1)
                     stack.pop()
         backtrack(0)
         return final_arr
 
-
 result = Solution()
 print(result.partition("aab"))  # [["a","a","b"],["aa","b"]]
-print(result.partition("a"))  # [["a"]]
+print(result.partition("a"))    # [["a"]]
