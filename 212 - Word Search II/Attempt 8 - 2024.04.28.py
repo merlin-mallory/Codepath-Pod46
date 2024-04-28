@@ -35,13 +35,14 @@ class Solution:
         All the strings of words are unique.
 
         Plan:
-        Trie
-        Time: O(m * n * 4^z), where m = rows, n = cols, and z = max len of word in words
-        Space: O(w * a + m * n), where w = number of words, a = avg len of word in words
+        Backtracking with Trie
+        Time: O(m * n * 4^x + w * x), where m = rows, n = cols, w = len of words, and x = max len of word in words
+        Space: O(w*a = m*n), where w = len of words, and a = average len of word in words
         Edge: None
         '''
+        # Create Trie
         root = TrieNode()
-        def addWord(word):
+        for word in words:
             cur = root
             for c in word:
                 if c not in cur.children:
@@ -49,39 +50,31 @@ class Solution:
                 cur = cur.children[c]
             cur.is_end = True
 
-        for w in words:
-            addWord(w)
-
-        rows = len(board)
-        cols = len(board[0])
-        final_arr = set()
-        visited_set = set()
-
-        def backtrack(r, c, node, word):
-            if (
-                r < 0 or c < 0 or r >= rows or c >= cols or
-                (r, c) in visited_set or
-                board[r][c] not in node.children
-            ):
+        # Backtrack to fill up final_arr with matches
+        def explore(r,c,cur,word):
+            if (r < 0) or (c < 0) or (r == rows) or (c == cols) or ((r,c) in visited_set) or (board[r][c] not in
+                                                                                              cur.children):
                 return
-
             visited_set.add((r,c))
-            node = node.children[board[r][c]]
             word += board[r][c]
-
-            if node.is_end: final_arr.add(word)
-
-            backtrack(r-1, c, node, word)
-            backtrack(r+1, c, node, word)
-            backtrack(r, c-1, node, word)
-            backtrack(r, c+1, node, word)
+            cur = cur.children[board[r][c]]
+            if cur.is_end: final_set.add(word)
+            explore(r+1,c,cur,word)
+            explore(r-1,c,cur,word)
+            explore(r,c+1,cur,word)
+            explore(r,c-1,cur,word)
             visited_set.remove((r,c))
 
+        # Iterate through board
+        rows, cols = len(board), len(board[0])
+        visited_set = set()
+        final_set = set()
         for r in range(rows):
             for c in range(cols):
-                backtrack(r, c, root, "")
+                explore(r,c,root,"")
+        return list(final_set)
 
-        return list(final_arr)
+
 
 
 solution = Solution()
@@ -100,3 +93,6 @@ print(solution.findWords(
     ["a","f","l","v"]
 ], ["oa","oaa"]))
 # ["oa", "oaa"]
+
+print(solution.findWords([["a","a"]], ["aaa"]))
+# []
