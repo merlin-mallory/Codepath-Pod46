@@ -26,36 +26,38 @@ class Solution:
 
         Plan:
         Graph Traversal with BFS
-        Time: O(m * n^2), where m = len of beginWord, and n = len of wordList
-        Space: O(m * n^2), where m = len of beginWord, and n = len of wordList, but realistically O(m*n) because each
-        word appears in exactly m patterns.
-        Edge: Need to handle the possibility that endWord might not be in the wordList.
+        Time: O(w*n*2^n), where w = len of wordList, n = len of max word in wordList
+        Space: O(w*n)
+        Edge: None
         '''
         import collections
         if endWord not in wordList: return 0
-        neighbor_dict = collections.defaultdict(list)
+
+        # Construct pattern_dict
+        pattern_dict = collections.defaultdict(list)
         wordList.append(beginWord)
-        # This loop time: O(m * n), space: O(m * n)
         for word in wordList:
-            for j in range(len(word)):
-                pattern = word[:j] + "*" + word[j+1:]
-                neighbor_dict[pattern].append(word)
-        visited_set = set(beginWord)
+            for i in range(len(word)):
+                pattern = word[:i] + "*" + word[i+1:]
+                pattern_dict[pattern].append(word)
+
+        # Construct deque, time
         deque = collections.deque([beginWord])
-        count = 1
-        # This BFS time: O(m^2 * n), Space: O(m).
-        # The Outer loop time is O(n) because of the visited_set, the inner loop time is O(m*n)
+        time = 1
+        visited_set = set(beginWord)
+
+        # Loop through deque until endWord is reached, or deque is empty
         while deque:
-            for i in range(len(deque)):
-                word = deque.popleft()
-                if word == endWord: return count
-                for j in range(len(word)):
-                    pattern = word[:j] + "*" + word[j+1:]
-                    for neighbor in neighbor_dict[pattern]:
+            for _ in range(len(deque)):
+                cur_word = deque.popleft()
+                if cur_word == endWord: return time
+                for i in range(len(cur_word)):
+                    pattern = cur_word[:i] + "*" + cur_word[i+1:]
+                    for neighbor in pattern_dict[pattern]:
                         if neighbor not in visited_set:
                             visited_set.add(neighbor)
                             deque.append(neighbor)
-            count += 1
+            time += 1
         return 0
 
 solution = Solution()
