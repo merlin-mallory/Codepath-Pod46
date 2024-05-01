@@ -25,27 +25,25 @@ class Solution:
         Each value grid[i][j] is unique.
 
         Plan:
-        Graph Traversal with BFS (Djikstras modified to minimize cumulative height)
-        Time: O(n^2 log n), where n = len(grid).
-        Space: O(n^2), where n = len(grid), there are n*n vertices in grid, so could also say O(V)
-        Edge: None
+        Graph Traversal with BFS (Dijkstra's Algo)
+        Time: O(m*n)
+        Space: O(m*n)
         """
         import heapq
-        N = len(grid)
-        visited_set = set()
-        minheap = [[grid[0][0], 0, 0]]     # (max_height, r, c)
         adj = [[1,0],[-1,0],[0,1],[0,-1]]
-        visited_set.add((0,0))
+        minheap = [(grid[0][0], 0, 0)]   # (max_val, r, c)
+        visited_set = {(0,0)}  # (r,c)
+        n = len(grid)
         while minheap:
-            old_height, old_r, old_c = heapq.heappop(minheap)
-            if old_r == N-1 and old_c == N-1:
-                return old_height
-            for mr, mc in adj:
-                r, c = old_r + mr, old_c + mc
-                if (r < 0 or c < 0 or r == N or c == N or (r, c) in visited_set):
-                    continue
-                visited_set.add((r, c))
-                heapq.heappush(minheap, [max(old_height, grid[r][c]), r, c])
+            cur_max, old_r, old_c = heapq.heappop(minheap)
+            if (old_r == n-1) and (old_c == n-1): return cur_max
+            for r_mod, c_mod in adj:
+                r = old_r + r_mod
+                c = old_c + c_mod
+                if (r < 0) or (c < 0) or (r == n) or (c == n) or ((r,c) in visited_set): continue
+                visited_set.add((r,c))
+                heapq.heappush(minheap, (max(cur_max, grid[r][c]), r, c))
+
 
 solution = Solution()
 
