@@ -22,9 +22,6 @@ class Solution:
         1 <= words.length <= 100
         1 <= words[i].length <= 100
         words[i] consists of only lowercase English letters.
-
-        Plan:
-        Topological Sort
         '''
 
 solution = Solution()
