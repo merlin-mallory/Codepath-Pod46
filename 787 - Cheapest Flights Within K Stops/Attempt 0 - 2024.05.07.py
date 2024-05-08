@@ -25,8 +25,9 @@ class Solution:
 
         Plan:
         Graph Traversal with BFS (Bellman-Ford Algo)
-        Time: O(E+V)
-        Space:
+        Time: O(k*E), where k = k, and E = len of flights
+        Space: O(n), where n = n
+        Edge: None
         '''
         prices = [float("inf")] * n
         prices[src] = 0

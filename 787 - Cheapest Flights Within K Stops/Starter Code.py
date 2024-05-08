@@ -1,6 +1,6 @@
 from typing import List
 class Solution:
-    def findCheapestPrice(self, n: int, flights: List[List[int]], source: int, dst: int, k: int) -> int:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
         '''
         787 - Cheapest Flights Within K Stops
 
@@ -22,11 +22,6 @@ class Solution:
         There will not be any multiple flights between two cities.
         0 <= src, dst, k < n
         src != dst
-
-        Plan:
-        Graph Traversal with BFS (Bellman-Ford Algo)
-        Time: O(E+V)
-        Space:
         '''
 
 solution = Solution()
