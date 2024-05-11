@@ -32,46 +32,36 @@ class Solution:
 
         Plan:
         Two Pointers
-        1. Sort the array. Then Loop through nums.
-            2. Grab left_val.
-            2.1 Handle duplicate values with a while loop.
-            3. Solve two sum between i+1 and end of list
-                4. l = i+1, r = len(nums)
-                5. Calculate threeSum = left_val + nums[l] + nums[r]
-                6. If threeSum < 0, then we need a bigger value, so l += 1
-                7. If threeSum > 0, then we need a smaller value, so r -= 1
-                8. If threeSum == 0, then append the sum to final_arr, and l += 1
-        9. Return final_arr
+        Time: O(n^2)
+        Space: O(n)
+        Edge: Need to handle duplicates
         """
-        final_arr = []
         nums.sort()
-
+        final_arr = []
         i = 0
-        while i < len(nums)-1:
-            left_val = nums[i]
-
-            l, r = i+1, len(nums)-1
-
-            while l < r:
-                threeSum = left_val + nums[l] + nums[r]
-                if threeSum < 0:
-                    l += 1
-                elif threeSum > 0:
-                    r -= 1
-                else:
-                    final_arr.append([left_val, nums[l], nums[r]])
-                    l += 1
-                    while nums[l] == nums[l-1] and l < r:
-                        l += 1
-
-            i += 1
-            while (nums[i] == nums[i-1]) and (i < len(nums)-1):
+        while i < len(nums):
+            while (i > 0) and (i < len(nums)-1) and (nums[i] == nums[i-1]):
                 i += 1
-
+            left_num = nums[i]
+            l, r = i+1, len(nums)-1
+            while l < r:
+                three_sum = left_num + nums[l] + nums[r]
+                if three_sum < 0: l += 1
+                elif three_sum > 0: r -= 1
+                else:
+                    final_arr.append([left_num, nums[l], nums[r]])
+                    l += 1
+                    while (l < r) and (nums[l] == nums[l-1]):
+                        l += 1
+            i += 1
         return final_arr
-
 
 result = Solution()
 print(result.threeSum([-1,0,1,2,-1,-4]))    # [[-1,-1,2],[-1,0,1]]
 print(result.threeSum([0,1,1]))             # []
 print(result.threeSum([0,0,0]))             # [[0,0,0]
+print(result.threeSum([-1,0,1,0]))          # [[-1,0,1]]
+print(result.threeSum([-1,0,1,2,-1,-4,-2,-3,3,0,4]))
+# [[-4,0,4],[-4,1,3],[-3,-1,4],[-3,0,3],[-3,1,2],[-2,-1,3],[-2,0,2],[-1,-1,2],[-1,0,1]]
+print(result.threeSum([-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6]))
+# [[-4,-2,6],[-4,0,4],[-4,1,3],[-4,2,2],[-2,-2,4],[-2,0,2]]
