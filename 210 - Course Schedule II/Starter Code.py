@@ -44,3 +44,6 @@ print(solution.findOrder(4, [[1, 0], [2, 0], [3, 1], [3, 2]]))
 
 print(solution.findOrder(1, []))
 # [0]
+
+print(solution.findOrder(2, [[0,1],[1,0]]))
+# []
