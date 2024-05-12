@@ -54,3 +54,6 @@ print(solution.findCheapestPrice(3, [[0,1,100],[1,2,100],[0,2,500]], 0, 2,1))
 print(solution.findCheapestPrice(3, [[0,1,100],[1,2,100],[0,2,500]], 0, 2,1))
 # 200
 # Explanation: The optimal path with no stops from city 0 to 2 is marked in red and has cost 500.
+
+print(solution.findCheapestPrice(2, [[1,0,5]], 0, 1,1))
+# -1
