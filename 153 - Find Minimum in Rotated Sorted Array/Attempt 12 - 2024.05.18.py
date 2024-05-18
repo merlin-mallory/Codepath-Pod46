@@ -48,7 +48,7 @@ class Solution:
             if nums[l] < nums[r]:
                 # We have a sorted subarray, so can compute end
                 min_val = min(min_val, nums[l])
-                break
+                return min_val
             cur = nums[m]
             min_val = min(min_val, cur)
             if cur >= nums[0]:
