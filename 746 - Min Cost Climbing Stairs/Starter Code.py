@@ -16,10 +16,6 @@ class Solution:
         Constraints:
         2 <= cost.length <= 1000
         0 <= cost[i] <= 999
-
-        Plan:
-        Dynamic Programming
-        Time:
         '''
 
 solution = Solution()

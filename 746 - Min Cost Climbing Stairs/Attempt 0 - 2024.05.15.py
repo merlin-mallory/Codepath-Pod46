@@ -83,3 +83,20 @@ print(solution.minCostClimbingStairs([1,100,1,1,1,100,1,1,100,1]))  # 6
 #             down_two = temp
 #
 #         return down_one
+
+# GPT O(n) time, O(n) space (memoization)
+# class Solution:
+#     def minCostClimbingStairs(self, cost: List[int]) -> int:
+#         memo = {}
+#         def min_cost(i):
+#             if i in memo:
+#                 return memo[i]
+#             if i == 0:
+#                 return cost[0]
+#             if i == 1:
+#                 return cost[1]
+#             memo[i] = cost[i] + min(min_cost(i - 1), min_cost(i - 2))
+#             return memo[i]
+#
+#         n = len(cost)
+#         return min(min_cost(n - 1), min_cost(n - 2))
