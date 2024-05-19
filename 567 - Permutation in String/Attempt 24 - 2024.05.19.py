@@ -37,8 +37,9 @@ class Solution:
                     s2_window[s2[l]] -= 1
                 l += 1
             r += 1
-            if s1_count == s2_window: return True
+            if s2_window == s1_count: return True
         return False
+
 
 result = Solution()
 print(result.checkInclusion("ab", "eidbaooo"))  # True

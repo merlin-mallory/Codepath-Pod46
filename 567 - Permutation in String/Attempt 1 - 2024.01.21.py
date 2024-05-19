@@ -116,3 +116,4 @@ class Solution:
 result = Solution()
 print(result.checkInclusion("ab", "eidbaooo"))  # True
 print(result.checkInclusion("ab", "eidboaoo"))  # False
+print(result.checkInclusion("abcdxabcde", "abcdeabcdx"))  # True
