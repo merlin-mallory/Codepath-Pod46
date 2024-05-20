@@ -91,8 +91,8 @@ class Twitter:
         '''
         The user with ID followerId started unfollowing the user with ID followeeId.
         '''
-        if followeeId in self.user_to_tweets[followerId]:
-            self.user_to_tweets[followerId].remove(followeeId)
+        if followeeId in self.user_to_followees[followerId]:
+            self.user_to_followees[followerId].remove(followeeId)
 
 # Your Twitter object will be instantiated and called as such:
 # obj = Twitter()
