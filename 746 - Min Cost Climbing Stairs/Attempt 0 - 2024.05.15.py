@@ -21,7 +21,6 @@ class Solution:
         Dynamic Programming
         Time:
         '''
-        if len(cost) == 2: return min(cost)
         dp = [0] * (len(cost))
         dp[0] = cost[0]
         dp[1] = cost[1]
