@@ -17,7 +17,27 @@ class Solution:
         Constraints:
         1 <= nums.length <= 100
         0 <= nums[i] <= 1000
+
+        Plan:
+        Dynamic Programming
+        Time: O(n)
+        Space: O(n)
+        Edge: None
         '''
+        if len(nums) == 0: return 0
+        if len(nums) == 1: return nums[0]
+        dp = [0] * len(nums)
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
+        for i in range(2, len(nums)):
+            dp[i] = max(nums[i] + dp[i-2], dp[i-1])
+        dp2 = [0] * len(nums)
+        dp2[0] = dp[-2]
+        dp2[1] = dp[-1]
+        for i in range(2, len(nums)):
+            dp2[i] = max(nums[i] + dp2[i-2], dp2[i-1])
+        return dp2[-1]
+
 
 solution = Solution()
 
