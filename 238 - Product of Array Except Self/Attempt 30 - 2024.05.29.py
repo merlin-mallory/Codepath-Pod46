@@ -39,7 +39,7 @@ class Solution:
         postfix = 1
         for i in range(len(nums)-2, -1, -1):
             postfix *= nums[i+1]
-            answer[i] = answer[i] * postfix
+            answer[i] *= postfix
         return answer
 
 result = Solution()
