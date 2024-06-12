@@ -37,3 +37,5 @@ print(solution.rob([2,7,9,3,1]))  # 12
 # Total amount you can rob = 2 + 9 + 1 = 12.
 
 print(solution.rob([2,1,1,2]))  # 4
+
+print(solution.rob([1,1]))      # 1
