@@ -32,42 +32,22 @@ class Solution:
         -10^4 <= subRoot.val <= 10^4
 
         Plan:
-        Recursive Tree
-        Create verify_mirror(cur, subroot)
-            Base case 1: If there's not subroot, return True.
-            Base case 2: If there's subroot and not cur, return False
-            Base case 3: If cur.val != subroot.val, return False.
-            left_result = verify_mirror(cur.left, subRoot.left)
-            right_result = recurseTree(cur.right, subRoot.right)
-            if left_result and right_result:
-                Return True
-            Else
-                Return False
-
-        Create recurse_tree(node):
-            left_result = recurse_tree(node.left)
-            right_result = recurse_tree(node.right)
-            is_subtree = verify_mirror(node, subRoot)
-            if is_subtree and left_result and right_result:
-                return True
-            else:
-                return False
-
-        Call recurse_tree(root), set to result
-        Return result
+        Tree Traversal with DFS
         Time: O(m * n), where m = len(root), and n = len(subRoot)
         Space: O(h)
         Edge: None
         '''
-        if not subRoot: return True
-        if not root: return False
-
-        def isMirror(node, sub):
-            if not node and not sub:
+        if root and not subRoot: return True
+        if subRoot and not root: return False
+        def isSame(node1, node2):
+            if (not node1) and (not node2): return True
+            if node1 and (not node2): return False
+            if (not node1) and node2: return False
+            if node1.val != node2.val: return False
+            left_bool = isSame(node1.left, node2.left)
+            right_bool = isSame(node1.right, node2.right)
+            if (left_bool and right_bool):
                 return True
-            if node and sub and node.val == sub.val:
-                return isMirror(node.left, sub.left) and isMirror(node.right,sub.right)
             else:
                 return False
-
-        return isMirror(root, subRoot) or self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
+        return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot) or isSame(root, subRoot)
