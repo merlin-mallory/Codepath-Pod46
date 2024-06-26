@@ -7,7 +7,7 @@
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         '''
-        104 Maximum Depth of Binary Tree
+        104 - Maximum Depth of Binary Tree
 
         https://leetcode.com/problems/maximum-depth-of-binary-tree/
 
@@ -27,5 +27,22 @@ class Solution:
         Constraints:
         The number of nodes in the tree is in the range [0, 10^4].
         -100 <= Node.val <= 100
+
+        Plan:
+        Tree Recursion
+        Base case: If we hit null, return 0.
+        Recursive Case 1: If there's node.left, then recurse to node.left.
+        Recursive Case 2: If there's node.right, then recurse to node.right
+        Calculate cur_height, which is the (max of left_height, right_height) + 1
+        Return cur_height
+        Time: O(n)
+        Space: O(n) (Worst case we have a linear array and linear callstack)
+        Edge: Could be 0 nodes in root.
         '''
+        if not root:
+            return 0
+        left_h = self.maxDepth(root.left)
+        right_h = self.maxDepth(root.right)
+        cur_height = max(left_h, right_h) + 1
+        return cur_height
 
