@@ -30,9 +30,7 @@ class Solution:
 
         Your code will only be given the head of the original linked list.
 
-        The head is a single Node object, and it is a single connected linked list. There are no random nodes
-        disconnected from the Linked List.
-
+        The head consists of "Node" objects. There are no random nodes isolated from the linked list.
         If the head is empty, then return None (not an empty Node).
 
         Example 1:
@@ -51,5 +49,28 @@ class Solution:
         0 <= n <= 1000
         -10^4 <= Node.val <= 10^4
         Node.random is null or is pointing to some node in the linked list.
+
+        Plan:
+        Linked List Traversal
+        Time: O(n)
+        Space: O(n)
+        Edge: None
         '''
+        if not head: return
+        old_to_new = {None: None}
+
+        cur = head
+        while cur:
+            old_to_new[cur] = Node(cur.val)
+            cur = cur.next
+
+        cur = head
+        while cur:
+            new_node = old_to_new[cur]
+            new_node.next = old_to_new[cur.next]
+            new_node.random = old_to_new[cur.random]
+            cur = cur.next
+
+        return old_to_new[head]
+
 
